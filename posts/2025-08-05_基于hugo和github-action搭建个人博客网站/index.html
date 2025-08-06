@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>基于Hugo和Github Action搭建blog | My New Hugo Site</title>
+<meta name="robots" content="noindex, nofollow">
+<title>基于Hugo和Github Action搭建blog | Mack Yan</title>
 <meta name="keywords" content="">
 <meta name="description" content="欢迎来到我的 Hugo 博客！
 
@@ -14,7 +14,7 @@ macOS安装Hugo
 brew install hugo
 验证安装
 hugo version
-实际安装版本：hugo v0.148.2&#43;extended&#43;withdeploy darwin/arm64 BuildDate=2025-07-27T12:43:24Z VendorInfo=brew
+实际安装版本：hugo v0.148.2
 
 创建Hugo博客项目
 
@@ -22,8 +22,8 @@ hugo new site mackyan --format yaml
 cd mackyan
 
 添加主题
-选择主题：以PaperMod为例
 
+选择主题：以PaperMod为例
 git init
 git submodule add --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
 如果是 clone 了其他人的博客项目进行修改，则需要用以下命令进行初始化：
@@ -57,16 +57,16 @@ draft: false
 hugo server -D
 打开浏览器访问：http://localhost:1313">
 <meta name="author" content="">
-<link rel="canonical" href="https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/">
+<link rel="canonical" href="http://localhost:1313/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://mackyan.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://mackyan.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://mackyan.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://mackyan.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://mackyan.github.io/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/">
 <noscript>
     <style>
         #theme-toggle,
@@ -103,127 +103,7 @@ hugo server -D
         }
 
     </style>
-</noscript><meta property="og:url" content="https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/">
-  <meta property="og:site_name" content="My New Hugo Site">
-  <meta property="og:title" content="基于Hugo和Github Action搭建blog">
-  <meta property="og:description" content="欢迎来到我的 Hugo 博客！
-macOS安装Hugo brew install hugo 验证安装
-hugo version 实际安装版本：hugo v0.148.2&#43;extended&#43;withdeploy darwin/arm64 BuildDate=2025-07-27T12:43:24Z VendorInfo=brew
-创建Hugo博客项目 hugo new site mackyan --format yaml cd mackyan 添加主题 选择主题：以PaperMod为例 git init git submodule add --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod 如果是 clone 了其他人的博客项目进行修改，则需要用以下命令进行初始化：
-git submodule update –init –recursive
-如果需要同步主题仓库的最新修改，需要运行以下命令：
-git submodule update –remote
-设置主题 vim hugo.yaml 添加内容
-theme: [“PaperMod”]
-写第一篇文章 hugo new posts/first.md 进入 content/posts/first.md，编辑内容如下：
---- title: &#34;First Blog Post&#34; date: 2025-08-03 draft: false --- 欢迎来到我的 Hugo 博客！ 本地预览博客 hugo server -D 打开浏览器访问：http://localhost:1313">
-  <meta property="og:locale" content="zh-cn">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2025-08-05T23:13:18+08:00">
-    <meta property="article:modified_time" content="2025-08-05T23:13:18+08:00">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于Hugo和Github Action搭建blog">
-<meta name="twitter:description" content="欢迎来到我的 Hugo 博客！
-
-macOS安装Hugo
-
-brew install hugo
-验证安装
-hugo version
-实际安装版本：hugo v0.148.2&#43;extended&#43;withdeploy darwin/arm64 BuildDate=2025-07-27T12:43:24Z VendorInfo=brew
-
-创建Hugo博客项目
-
-hugo new site mackyan --format yaml
-cd mackyan
-
-添加主题
-选择主题：以PaperMod为例
-
-git init
-git submodule add --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
-如果是 clone 了其他人的博客项目进行修改，则需要用以下命令进行初始化：
-
-git submodule update &ndash;init &ndash;recursive
-如果需要同步主题仓库的最新修改，需要运行以下命令：
-
-git submodule update &ndash;remote
-
-设置主题
-
-vim hugo.yaml
-添加内容
-
-theme: [&ldquo;PaperMod&rdquo;]
-
-写第一篇文章
-
-hugo new posts/first.md
-进入 content/posts/first.md，编辑内容如下：
----
-title: &#34;First Blog Post&#34;
-date: 2025-08-03
-draft: false
----
-
-欢迎来到我的 Hugo 博客！
-
-本地预览博客
-
-hugo server -D
-打开浏览器访问：http://localhost:1313">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://mackyan.github.io/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "基于Hugo和Github Action搭建blog",
-      "item": "https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "基于Hugo和Github Action搭建blog",
-  "name": "基于Hugo和Github Action搭建blog",
-  "description": "欢迎来到我的 Hugo 博客！\nmacOS安装Hugo brew install hugo 验证安装\nhugo version 实际安装版本：hugo v0.148.2+extended+withdeploy darwin/arm64 BuildDate=2025-07-27T12:43:24Z VendorInfo=brew\n创建Hugo博客项目 hugo new site mackyan --format yaml cd mackyan 添加主题 选择主题：以PaperMod为例 git init git submodule add --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod 如果是 clone 了其他人的博客项目进行修改，则需要用以下命令进行初始化：\ngit submodule update \u0026ndash;init \u0026ndash;recursive\n如果需要同步主题仓库的最新修改，需要运行以下命令：\ngit submodule update \u0026ndash;remote\n设置主题 vim hugo.yaml 添加内容\ntheme: [\u0026ldquo;PaperMod\u0026rdquo;]\n写第一篇文章 hugo new posts/first.md 进入 content/posts/first.md，编辑内容如下：\n--- title: \u0026#34;First Blog Post\u0026#34; date: 2025-08-03 draft: false --- 欢迎来到我的 Hugo 博客！ 本地预览博客 hugo server -D 打开浏览器访问：http://localhost:1313\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "欢迎来到我的 Hugo 博客！\nmacOS安装Hugo brew install hugo 验证安装\nhugo version 实际安装版本：hugo v0.148.2+extended+withdeploy darwin/arm64 BuildDate=2025-07-27T12:43:24Z VendorInfo=brew\n创建Hugo博客项目 hugo new site mackyan --format yaml cd mackyan 添加主题 选择主题：以PaperMod为例 git init git submodule add --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod 如果是 clone 了其他人的博客项目进行修改，则需要用以下命令进行初始化：\ngit submodule update –init –recursive\n如果需要同步主题仓库的最新修改，需要运行以下命令：\ngit submodule update –remote\n设置主题 vim hugo.yaml 添加内容\ntheme: [“PaperMod”]\n写第一篇文章 hugo new posts/first.md 进入 content/posts/first.md，编辑内容如下：\n--- title: \"First Blog Post\" date: 2025-08-03 draft: false --- 欢迎来到我的 Hugo 博客！ 本地预览博客 hugo server -D 打开浏览器访问：http://localhost:1313\n配置博客信息（可选） 修改hugo.yaml中加入更多信息： baseURL = \"https://yourusername.github.io/\" title = \"My Hugo Blog\" theme = \"PaperMod\" languageCode = \"zh-cn\" paginate = 10 [params] author = \"Mack\" ShowReadingTime = true ShowPostNavLinks = true 参考资料：\nHugo-PaperMod installation wiki Hugo + GitHub Action，搭建你的博客自动发布系统 搭建 Hugo 个人网站｜PaperMod 主题 ",
-  "wordCount" : "118",
-  "inLanguage": "en",
-  "datePublished": "2025-08-05T23:13:18+08:00",
-  "dateModified": "2025-08-05T23:13:18+08:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "My New Hugo Site",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://mackyan.github.io/favicon.ico"
-    }
-  }
-}
-</script>
+</noscript>
 </head>
 
 <body class="" id="top">
@@ -241,7 +121,7 @@ hugo server -D
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://mackyan.github.io/" accesskey="h" title="My New Hugo Site (Alt + H)">My New Hugo Site</a>
+            <a href="http://localhost:1313/" accesskey="h" title="Mack Yan (Alt + H)">Mack Yan</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -277,7 +157,7 @@ hugo server -D
     <h1 class="post-title entry-hint-parent">
       基于Hugo和Github Action搭建blog
     </h1>
-    <div class="post-meta"><span title='2025-08-05 23:13:18 +0800 CST'>August 5, 2025</span>
+    <div class="post-meta"><span title='2025-08-05 23:13:18 +0800 CST'>August 5, 2025</span>&nbsp;·&nbsp;1 min
 
 </div>
   </header> 
@@ -288,16 +168,16 @@ hugo server -D
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install hugo
 </span></span></code></pre></div><p>验证安装</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo version
-</span></span></code></pre></div><p>实际安装版本：hugo v0.148.2+extended+withdeploy darwin/arm64 BuildDate=2025-07-27T12:43:24Z VendorInfo=brew</p>
+</span></span></code></pre></div><p>实际安装版本：hugo v0.148.2</p>
 <ol start="2">
 <li>创建Hugo博客项目</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo new site mackyan --format yaml
 </span></span><span style="display:flex;"><span>cd mackyan
 </span></span></code></pre></div><ol start="3">
-<li>添加主题
-选择主题：以PaperMod为例</li>
+<li>添加主题</li>
 </ol>
+<p>选择主题：以PaperMod为例</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git init
 </span></span><span style="display:flex;"><span>git submodule add --depth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
 </span></span></code></pre></div><p>如果是 clone 了其他人的博客项目进行修改，则需要用以下命令进行初始化：</p>
@@ -362,7 +242,7 @@ hugo server -D
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="https://mackyan.github.io/">My New Hugo Site</a></span> · 
+        <span>&copy; 2025 <a href="http://localhost:1313/">Mack Yan</a></span> · 
 
     <span>
         Powered by
