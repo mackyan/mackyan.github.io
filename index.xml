@@ -13,7 +13,7 @@
       <link>https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/</link>
       <pubDate>Tue, 05 Aug 2025 23:13:18 +0800</pubDate>
       <guid>https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/</guid>
-      <description>&lt;p&gt;欢迎来到我的 Hugo 博客！&lt;/p&gt;
+      <description>&lt;h1 id=&#34;欢迎来到我的-hugo-博客&#34;&gt;欢迎来到我的 Hugo 博客！&lt;/h1&gt;
 &lt;ol&gt;
 &lt;li&gt;macOS安装Hugo&lt;/li&gt;
 &lt;/ol&gt;
