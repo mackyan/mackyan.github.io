@@ -10,9 +10,9 @@
     <atom:link href="https://mackyan.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>基于Hugo和Github Action搭建blog</title>
-      <link>https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/</link>
+      <link>https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BAblog/</link>
       <pubDate>Tue, 05 Aug 2025 23:13:18 +0800</pubDate>
-      <guid>https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E7%AB%99/</guid>
+      <guid>https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BAblog/</guid>
       <description>&lt;h3 id=&#34;基于hugo的blog搭建&#34;&gt;基于Hugo的blog搭建&lt;/h3&gt;
 &lt;h4 id=&#34;1-macos安装hugo&#34;&gt;1. macOS安装Hugo&lt;/h4&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;brew install hugo
