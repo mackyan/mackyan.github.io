@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>基于Hugo和Github Action搭建blog | Mack Yan</title>
-<meta name="keywords" content="">
+<meta name="keywords" content="blog">
 <meta name="description" content="基于Hugo的blog搭建
 1. macOS安装Hugo
 brew install hugo
@@ -106,6 +106,7 @@ theme: PaperMod 5. 写第一篇文章 hugo new posts/first.md vim content/posts/
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-08-05T23:13:18+08:00">
     <meta property="article:modified_time" content="2025-08-05T23:13:18+08:00">
+    <meta property="article:tag" content="Blog">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于Hugo和Github Action搭建blog">
 <meta name="twitter:description" content="基于Hugo的blog搭建
@@ -174,7 +175,7 @@ hugo server -D
   "name": "基于Hugo和Github Action搭建blog",
   "description": "基于Hugo的blog搭建 1. macOS安装Hugo brew install hugo 验证安装\nhugo version 实际安装版本：hugo v0.148.2\n2. 创建Hugo博客项目 hugo new site mackyan --format yaml cd mackyan 3. 添加主题 选择主题：以PaperMod为例\ngit init git submodule add --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod 如果是 clone 了其他人的博客项目进行修改，则需要用以下命令进行初始化：\ngit submodule update --init --recursive 如果需要同步主题仓库的最新修改，需要运行以下命令：\ngit submodule update --remote 4. 设置主题 vim hugo.yaml 添加内容\ntheme: PaperMod 5. 写第一篇文章 hugo new posts/first.md vim content/posts/first.md 新建的文章位于content/posts目录下，编辑内容如下：\n--- title: \u0026#34;First Blog Post\u0026#34; date: 2025-08-03 draft: false --- 欢迎来到我的 Hugo 博客！ 6. 本地预览博客 hugo server -D 打开浏览器访问：http://localhost:1313\n",
   "keywords": [
-    
+    "blog"
   ],
   "articleBody": "基于Hugo的blog搭建 1. macOS安装Hugo brew install hugo 验证安装\nhugo version 实际安装版本：hugo v0.148.2\n2. 创建Hugo博客项目 hugo new site mackyan --format yaml cd mackyan 3. 添加主题 选择主题：以PaperMod为例\ngit init git submodule add --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod 如果是 clone 了其他人的博客项目进行修改，则需要用以下命令进行初始化：\ngit submodule update --init --recursive 如果需要同步主题仓库的最新修改，需要运行以下命令：\ngit submodule update --remote 4. 设置主题 vim hugo.yaml 添加内容\ntheme: PaperMod 5. 写第一篇文章 hugo new posts/first.md vim content/posts/first.md 新建的文章位于content/posts目录下，编辑内容如下：\n--- title: \"First Blog Post\" date: 2025-08-03 draft: false --- 欢迎来到我的 Hugo 博客！ 6. 本地预览博客 hugo server -D 打开浏览器访问：http://localhost:1313\n7. 配置博客信息（可选） 修改hugo.yaml中加入更多信息：\nbaseURL: \"https://mackyan.github.io/\" languageCode: zh-cn title: Mack Yan theme: PaperMod enableEmoji: true pagination: disableAliases: false pagerSize: 10 params: author: Mack ShowToc: true ShowReadingTime: true ShowPostNavLinks: true 使用Github Actions自动部署 详细配置步骤参考资料2和资料4。\n目前有两个仓库：\nmackyan（private）：hugo博客的根目录 mackyan.github.io（public）：存放hugo生成的静态文件，即mackyan/public目录 在mackyan根目录下建立.github/workflows/hugo.ymk文件，配置如下内容：\nname: deploy on: push: workflow_dispatch: schedule: # Runs everyday at 8:00 AM - cron: \"0 0 * * *\" jobs: build: runs-on: ubuntu-latest steps: - name: Checkout uses: actions/checkout@v2 with: submodules: true fetch-depth: 0 - name: Setup Hugo uses: peaceiris/actions-hugo@v2 with: hugo-version: \"latest\" - name: Build Web run: hugo - name: Deploy Web uses: peaceiris/actions-gh-pages@v3 with: PERSONAL_TOKEN: ${{ secrets.GH_PAGE_ACTION_TOKEN }} EXTERNAL_REPOSITORY: mackyan/mackyan.github.io PUBLISH_BRANCH: main PUBLISH_DIR: ./public commit_message: ${{ github.event.head_commit.message }} 其中PERSONAL_TOKEN根据下图创建和使用: 总结 当完成以上环境的部署之后，接下来的常见操作就是：\nhugo new posts/xxx.md新建文章（或者 hugo new posts/xxx/index.md）\n添加或修改文章内容\n上传push更新修改到GitHub\n自动执行github actions，生成静态文件，部署到xxx.github.io的github pages\n个人网站查看网页文章是否生效\n参考资料 Hugo-PaperMod installation wiki Hugo + GitHub Action，搭建你的博客自动发布系统 搭建 Hugo 个人网站｜PaperMod 主题 使用github actions自动部署hugo博客（隐藏网站根目录） ",
   "wordCount" : "213",
@@ -241,6 +242,26 @@ hugo server -D
             </div>
         </div>
         <ul id="menu">
+            <li>
+                <a href="https://mackyan.github.io/posts/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://mackyan.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://mackyan.github.io/search/" title="Search">
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://mackyan.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
         </ul>
     </nav>
 </header>
@@ -256,7 +277,7 @@ hugo server -D
 
 </div>
   </header> <div class="toc">
-    <details >
+    <details  open>
         <summary accesskey="c" title="(Alt + C)">
             <span class="details">Table of Contents</span>
         </summary>
@@ -426,13 +447,14 @@ hugo server -D
 
   <footer class="post-footer">
     <ul class="post-tags">
+      <li><a href="https://mackyan.github.io/tags/blog/">Blog</a></li>
     </ul>
 
 
 <ul class="share-buttons">
     <li>
         <a target="_blank" rel="noopener noreferrer" aria-label="share 基于Hugo和Github Action搭建blog on x"
-            href="https://x.com/intent/tweet/?text=%e5%9f%ba%e4%ba%8eHugo%e5%92%8cGithub%20Action%e6%90%ad%e5%bb%bablog&amp;url=https%3a%2f%2fmackyan.github.io%2fposts%2f2025-08-05_%25E5%259F%25BA%25E4%25BA%258Ehugo%25E5%2592%258Cgithub-action%25E6%2590%25AD%25E5%25BB%25BAblog%2f&amp;hashtags=">
+            href="https://x.com/intent/tweet/?text=%e5%9f%ba%e4%ba%8eHugo%e5%92%8cGithub%20Action%e6%90%ad%e5%bb%bablog&amp;url=https%3a%2f%2fmackyan.github.io%2fposts%2f2025-08-05_%25E5%259F%25BA%25E4%25BA%258Ehugo%25E5%2592%258Cgithub-action%25E6%2590%25AD%25E5%25BB%25BAblog%2f&amp;hashtags=blog">
             <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
                 <path
                     d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
