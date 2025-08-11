@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,7 +43,7 @@ conda → 跨语言包管理器（Python、C/C&#43;&#43; 库等都能管），�
 <link rel="mask-icon" href="https://mackyan.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://mackyan.github.io/posts/2025-08-11_uv%E4%B8%80%E7%AB%99%E5%BC%8F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/">
+<link rel="alternate" hreflang="zh" href="https://mackyan.github.io/posts/2025-08-11_uv%E4%B8%80%E7%AB%99%E5%BC%8F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/">
 <noscript>
     <style>
         #theme-toggle,
@@ -156,7 +156,7 @@ conda → 跨语言包管理器（Python、C/C&#43;&#43; 库等都能管），�
   ],
   "articleBody": "uv、conda、poetry对比分析 1. 本质定位差异 uv → 由 Astral（原 Ruff 团队）开发的超高速 Python 包管理 + 虚拟环境管理工具，定位是替代 pip + venv + pip-tools + poetry 的依赖管理部分。\npoetry → Python 生态内主流的项目依赖管理 + 构建发布工具，偏全能型，但速度一般。\nconda → 跨语言包管理器（Python、C/C++ 库等都能管），带自己的二进制包渠道（conda-forge、Anaconda），主要优势是科学计算依赖的二进制分发。\n2. uv 相比 poetry / conda 的主要优势 (1) 极快的速度 核心是 Rust 实现 + 并行下载 + 本地缓存，冷装比 pip/poetry 快数倍，热装基本秒级。\n官方实测：安装 100 个依赖的项目，uv 比 poetry 快 810 倍，比 conda 快 1520 倍。\n第一性原理：速度取决于 IO 并发能力 + 解析算法效率。pip/poetry 都是 Python 实现，单线程解析，uv 用 Rust 并发解析 + 请求，效率差距天然存在。\n(2) 与 pip 完全兼容 poetry 有自己的依赖解析器和 lock 格式，和 pip 不是完全兼容；conda 更是独立体系。\nuv 支持直接读写 pyproject.toml、requirements.txt，无额外格式锁定，方便和现有 pip 流程混用。\n可以用 uv pip install 无缝替代 pip，但享受 uv 的速度和缓存。\n(3) 内置跨项目共享缓存 安装的 wheel/sdist 缓存是全局的，不同项目重复依赖无需重新下载/构建。\npoetry 的缓存范围较小，conda 虽然有缓存，但 channel 更新时会触发大量重新下载。\n(4) 单文件可执行，零环境依赖 uv 是单独的二进制文件（类似 ripgrep、fd），直接下载运行，不依赖 Python 预安装。\npoetry 自身需要 Python 运行环境，conda 则要安装 Anaconda/Miniconda 体积很大。\n(5) 高效锁定与解析 uv 的解析器（基于 Rust）能在毫秒级完成依赖树解析并生成 uv.lock。\npoetry 的解析是 Python 实现，对复杂依赖树（尤其是冲突检查）会慢很多。\nconda 解析复杂环境时（尤其混合 python+非python包）非常慢。\n(6) 轻量化 \u0026 单一职责 uv 目标是“快速安装、解析、锁定、运行”，构建/发布功能交给成熟工具（如 hatch、setuptools）。\npoetry 集成了构建/发布，功能多但容易卡在某个子模块更新慢的问题。\nconda 则功能更多，但在纯 Python 项目中显得过重。\n3. 对比表 维度 uv poetry conda 实现语言 Rust Python Python/C 混合 安装速度 极快（秒级） 中等（pip 级别） 慢（解析耗时长） 依赖解析 Rust 并发解析 Python 单线程解析 SAT 求解器，慢但支持跨语言 缓存机制 全局共享缓存 项目级+有限全局 全局，但更新容易触发重下 与 pip 兼容性 完全兼容 部分（lock 不兼容） 基本不兼容 二进制分发 依赖 PyPI wheel 依赖 PyPI wheel 内置二进制（科学计算友好） 适合场景 现代 Python 项目，追求极致速度 全能型 Python 项目管理 跨语言依赖、大型科学计算 构建/发布 无（交给 hatch 等） 内置 无 安装体积 单二进制，小 依赖 Python Anaconda 大，Miniconda 中等 4. 关键洞见 uv 是 Python 依赖管理的“加速器”，不是全能替代品，如果你的项目还需要构建/发布，可能需要配合 hatch、setuptools 等。\nconda 的核心价值是非 Python 库的二进制分发，在纯 Python 场景反而累赘。\npoetry 在“开发体验一体化”上依然有价值，比如版本管理、发布流程集成，但速度被 uv 完爆。\nuv 现在正处于功能扩展期，未来可能接近 poetry 的一体化，但现在更适合“高性能依赖安装/解析”任务。\n5. 常用命令大全 # 创建虚拟环境 uv venv --python=3.12 uv venv --python=3.10 # 激活虚拟环境 # For macOS/Linux source .venv/bin/activate # For Windows .venv\\Scripts\\activate # 离开虚拟环境 deactivate # 虚拟环境安装包，但不会写入到工程依赖中【不推荐】 uv pip install xxx # 用uv init来完整地管理它的相关环境依赖，项目相关的依赖都会明明白白地写在项目的配置文件中，后面在不同的机器上也能够很快地搭建起这个环境。 uv init . # uv add等同于uv pip install，且会写入到工程依赖中 uv add xxx # uv remove等同于 uv pip uninstall，且会将xxx包从工程依赖中移除 uv remove xxx # 查看工程依赖包的树状结构 uv tree # 同步锁定依赖（高级用法）根据 requirements.txt 或 requirements.lock 精确安装依赖，保持团队环境一致 uv sync 6. 注意事项 (1)在项目中更新依赖包并同步更新uv.lock/pyproject.toml 在使用 uv 管理 Python 项目依赖时，如果要引入或更新一个包，并保证 uv.lock 与 pyproject.toml 同步更新，可以按以下两种情况处理：\n不知道目标包的具体版本号 以 langgraph 为例，有两种方法：\n方法一（推荐）\n直接移除再添加，让 uv 自动解析最新版本并写入配置：\nuv remove langgraph uv add langgraph 方法二（不推荐）\n利用 uv lock –upgrade-package 升级锁文件：\nuv lock --upgrade-package langgraph uv sync 缺点：此方法只会更新 uv.lock，不会同步更新 pyproject.toml，容易导致配置不一致。\n已知目标包的具体版本号 显式指定版本更新：\nuv add langgraph==0.6.2 这样会同时更新 pyproject.toml 和 uv.lock，保证依赖版本锁定一致。\n💡 小贴士\nuv add 会自动处理安装、依赖解析和配置文件更新，是 uv 最推荐的依赖变更方式。\n避免手动改 pyproject.toml 再运行 uv lock，因为容易遗漏同步步骤。\n如果想一次升级多个包，可用：\nuv remove 包1 包2 \u0026\u0026 uv add 包1 包2 ",
   "wordCount" : "370",
-  "inLanguage": "en",
+  "inLanguage": "zh",
   "datePublished": "2025-08-11T23:59:19+08:00",
   "dateModified": "2025-08-11T23:59:29+08:00",
   "author":[{
@@ -255,13 +255,13 @@ conda → 跨语言包管理器（Python、C/C&#43;&#43; 库等都能管），�
     <h1 class="post-title entry-hint-parent">
       uv一站式环境管理工具
     </h1>
-    <div class="post-meta"><span title='2025-08-11 23:59:19 +0800 +0800'>2025-08-11</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;370 words&nbsp;·&nbsp;Mack
+    <div class="post-meta"><span title='2025-08-11 23:59:19 +0800 +0800'>2025-08-11</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;370 字&nbsp;·&nbsp;Mack
 
 </div>
   </header> <div class="toc">
     <details  open>
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
+            <span class="details">目录</span>
         </summary>
 
         <div class="inner"><ul>
@@ -559,7 +559,7 @@ uv sync
     </ul>
 <nav class="paginav">
   <a class="next" href="https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BAblog/">
-    <span class="title">Next »</span>
+    <span class="title">下一页 »</span>
     <br>
     <span>基于Hugo和Github Action搭建blog</span>
   </a>
@@ -726,12 +726,12 @@ uv sync
 
         const copybutton = document.createElement('button');
         copybutton.classList.add('copy-code');
-        copybutton.innerHTML = 'copy';
+        copybutton.innerHTML = '复制';
 
         function copyingDone() {
-            copybutton.innerHTML = 'copied!';
+            copybutton.innerHTML = '已复制！';
             setTimeout(() => {
-                copybutton.innerHTML = 'copy';
+                copybutton.innerHTML = '复制';
             }, 2000);
         }
 
