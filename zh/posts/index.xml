@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on Mack Yan</title>
+    <link>https://mackyan.github.io/zh/posts/</link>
+    <description>feedId:177369521563972608+userId:164686159870940160 Recent content in Posts on Mack Yan</description>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>zh</language>
+    <copyright>2025 Mack Yan</copyright>
+    <lastBuildDate>Mon, 11 Aug 2025 23:59:29 +0800</lastBuildDate>
+    <atom:link href="https://mackyan.github.io/zh/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>uv一站式环境管理工具</title>
+      <link>https://mackyan.github.io/zh/posts/2025-08-11_uv%E4%B8%80%E7%AB%99%E5%BC%8F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/</link>
+      <pubDate>Mon, 11 Aug 2025 23:59:19 +0800</pubDate>
+      <guid>https://mackyan.github.io/zh/posts/2025-08-11_uv%E4%B8%80%E7%AB%99%E5%BC%8F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/</guid>
+      <description>&lt;h1 id=&#34;uvcondapoetry对比分析&#34;&gt;uv、conda、poetry对比分析&lt;/h1&gt;
+&lt;h2 id=&#34;1-本质定位差异&#34;&gt;&lt;strong&gt;1. 本质定位差异&lt;/strong&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;uv&lt;/strong&gt; → 由 Astral（原 Ruff 团队）开发的&lt;strong&gt;超高速 Python 包管理 + 虚拟环境管理工具&lt;/strong&gt;，定位是&lt;strong&gt;替代 pip + venv + pip-tools + poetry 的依赖管理部分&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;poetry&lt;/strong&gt; → Python 生态内主流的&lt;strong&gt;项目依赖管理 + 构建发布工具&lt;/strong&gt;，偏全能型，但速度一般。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;conda&lt;/strong&gt; → 跨语言包管理器（Python、C/C++ 库等都能管），带自己的二进制包渠道（conda-forge、Anaconda），主要优势是&lt;strong&gt;科学计算依赖的二进制分发&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2-uv-相比-poetry--conda-的主要优势&#34;&gt;&lt;strong&gt;2. uv 相比 poetry / conda 的主要优势&lt;/strong&gt;&lt;/h2&gt;
+&lt;h3 id=&#34;1-极快的速度&#34;&gt;&lt;strong&gt;(1) 极快的速度&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;核心是 &lt;strong&gt;Rust 实现 + 并行下载 + 本地缓存&lt;/strong&gt;，冷装比 pip/poetry 快数倍，热装基本秒级。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;官方实测：安装 100 个依赖的项目，uv 比 poetry 快 810 倍，比 conda 快 1520 倍。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;第一性原理&lt;/strong&gt;：速度取决于 IO 并发能力 + 解析算法效率。pip/poetry 都是 Python 实现，单线程解析，uv 用 Rust 并发解析 + 请求，效率差距天然存在。&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h1 id="uvcondapoetry对比分析">uv、conda、poetry对比分析</h1>
+<h2 id="1-本质定位差异"><strong>1. 本质定位差异</strong></h2>
+<ul>
+<li>
+<p><strong>uv</strong> → 由 Astral（原 Ruff 团队）开发的<strong>超高速 Python 包管理 + 虚拟环境管理工具</strong>，定位是<strong>替代 pip + venv + pip-tools + poetry 的依赖管理部分</strong>。</p>
+</li>
+<li>
+<p><strong>poetry</strong> → Python 生态内主流的<strong>项目依赖管理 + 构建发布工具</strong>，偏全能型，但速度一般。</p>
+</li>
+<li>
+<p><strong>conda</strong> → 跨语言包管理器（Python、C/C++ 库等都能管），带自己的二进制包渠道（conda-forge、Anaconda），主要优势是<strong>科学计算依赖的二进制分发</strong>。</p>
+</li>
+</ul>
+<hr>
+<h2 id="2-uv-相比-poetry--conda-的主要优势"><strong>2. uv 相比 poetry / conda 的主要优势</strong></h2>
+<h3 id="1-极快的速度"><strong>(1) 极快的速度</strong></h3>
+<ul>
+<li>
+<p>核心是 <strong>Rust 实现 + 并行下载 + 本地缓存</strong>，冷装比 pip/poetry 快数倍，热装基本秒级。</p>
+</li>
+<li>
+<p>官方实测：安装 100 个依赖的项目，uv 比 poetry 快 810 倍，比 conda 快 1520 倍。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>第一性原理</strong>：速度取决于 IO 并发能力 + 解析算法效率。pip/poetry 都是 Python 实现，单线程解析，uv 用 Rust 并发解析 + 请求，效率差距天然存在。</p></blockquote>
+<hr>
+<h3 id="2-与-pip-完全兼容"><strong>(2) 与 pip 完全兼容</strong></h3>
+<ul>
+<li>
+<p>poetry 有自己的依赖解析器和 lock 格式，和 pip 不是完全兼容；conda 更是独立体系。</p>
+</li>
+<li>
+<p>uv 支持直接读写 pyproject.toml、requirements.txt，无额外格式锁定，方便和现有 pip 流程混用。</p>
+</li>
+<li>
+<p>可以用 uv pip install 无缝替代 pip，但享受 uv 的速度和缓存。</p>
+</li>
+</ul>
+<hr>
+<h3 id="3-内置跨项目共享缓存"><strong>(3) 内置跨项目共享缓存</strong></h3>
+<ul>
+<li>
+<p>安装的 wheel/sdist 缓存是全局的，不同项目重复依赖无需重新下载/构建。</p>
+</li>
+<li>
+<p>poetry 的缓存范围较小，conda 虽然有缓存，但 channel 更新时会触发大量重新下载。</p>
+</li>
+</ul>
+<hr>
+<h3 id="4-单文件可执行零环境依赖"><strong>(4) 单文件可执行，零环境依赖</strong></h3>
+<ul>
+<li>
+<p>uv 是单独的二进制文件（类似 ripgrep、fd），直接下载运行，不依赖 Python 预安装。</p>
+</li>
+<li>
+<p>poetry 自身需要 Python 运行环境，conda 则要安装 Anaconda/Miniconda 体积很大。</p>
+</li>
+</ul>
+<hr>
+<h3 id="5-高效锁定与解析"><strong>(5) 高效锁定与解析</strong></h3>
+<ul>
+<li>
+<p>uv 的解析器（基于 Rust）能在毫秒级完成依赖树解析并生成 uv.lock。</p>
+</li>
+<li>
+<p>poetry 的解析是 Python 实现，对复杂依赖树（尤其是冲突检查）会慢很多。</p>
+</li>
+<li>
+<p>conda 解析复杂环境时（尤其混合 python+非python包）非常慢。</p>
+</li>
+</ul>
+<hr>
+<h3 id="6-轻量化--单一职责"><strong>(6) 轻量化 &amp; 单一职责</strong></h3>
+<ul>
+<li>
+<p>uv 目标是“快速安装、解析、锁定、运行”，构建/发布功能交给成熟工具（如 hatch、setuptools）。</p>
+</li>
+<li>
+<p>poetry 集成了构建/发布，功能多但容易卡在某个子模块更新慢的问题。</p>
+</li>
+<li>
+<p>conda 则功能更多，但在纯 Python 项目中显得过重。</p>
+</li>
+</ul>
+<hr>
+<h2 id="3-对比表"><strong>3. 对比表</strong></h2>
+<table>
+  <thead>
+      <tr>
+          <th><strong>维度</strong></th>
+          <th><strong>uv</strong></th>
+          <th><strong>poetry</strong></th>
+          <th><strong>conda</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>实现语言</td>
+          <td>Rust</td>
+          <td>Python</td>
+          <td>Python/C 混合</td>
+      </tr>
+      <tr>
+          <td>安装速度</td>
+          <td><strong>极快</strong>（秒级）</td>
+          <td>中等（pip 级别）</td>
+          <td>慢（解析耗时长）</td>
+      </tr>
+      <tr>
+          <td>依赖解析</td>
+          <td>Rust 并发解析</td>
+          <td>Python 单线程解析</td>
+          <td>SAT 求解器，慢但支持跨语言</td>
+      </tr>
+      <tr>
+          <td>缓存机制</td>
+          <td>全局共享缓存</td>
+          <td>项目级+有限全局</td>
+          <td>全局，但更新容易触发重下</td>
+      </tr>
+      <tr>
+          <td>与 pip 兼容性</td>
+          <td><strong>完全兼容</strong></td>
+          <td>部分（lock 不兼容）</td>
+          <td>基本不兼容</td>
+      </tr>
+      <tr>
+          <td>二进制分发</td>
+          <td>依赖 PyPI wheel</td>
+          <td>依赖 PyPI wheel</td>
+          <td><strong>内置二进制</strong>（科学计算友好）</td>
+      </tr>
+      <tr>
+          <td>适合场景</td>
+          <td>现代 Python 项目，追求极致速度</td>
+          <td>全能型 Python 项目管理</td>
+          <td>跨语言依赖、大型科学计算</td>
+      </tr>
+      <tr>
+          <td>构建/发布</td>
+          <td>无（交给 hatch 等）</td>
+          <td>内置</td>
+          <td>无</td>
+      </tr>
+      <tr>
+          <td>安装体积</td>
+          <td><strong>单二进制，小</strong></td>
+          <td>依赖 Python</td>
+          <td>Anaconda 大，Miniconda 中等</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="4-关键洞见"><strong>4. 关键洞见</strong></h2>
+<ol>
+<li>
+<p><strong>uv 是 Python 依赖管理的“加速器”</strong>，不是全能替代品，如果你的项目还需要构建/发布，可能需要配合 hatch、setuptools 等。</p>
+</li>
+<li>
+<p><strong>conda 的核心价值是非 Python 库的二进制分发</strong>，在纯 Python 场景反而累赘。</p>
+</li>
+<li>
+<p>poetry 在“开发体验一体化”上依然有价值，比如版本管理、发布流程集成，但速度被 uv 完爆。</p>
+</li>
+<li>
+<p>uv 现在正处于功能扩展期，未来可能接近 poetry 的一体化，但现在更适合“高性能依赖安装/解析”任务。</p>
+</li>
+</ol>
+<hr>
+<h2 id="5-常用命令大全"><strong>5. 常用命令大全</strong></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建虚拟环境</span>
+</span></span><span class="line"><span class="cl">uv venv --python<span class="o">=</span>3.12
+</span></span><span class="line"><span class="cl">uv venv --python<span class="o">=</span>3.10
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 激活虚拟环境</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># For macOS/Linux</span>
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> .venv/bin/activate
+</span></span><span class="line"><span class="cl"><span class="c1"># For Windows</span>
+</span></span><span class="line"><span class="cl">.venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 离开虚拟环境</span>
+</span></span><span class="line"><span class="cl">deactivate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 虚拟环境安装包，但不会写入到工程依赖中【不推荐】</span>
+</span></span><span class="line"><span class="cl">uv pip install xxx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 用uv init来完整地管理它的相关环境依赖，项目相关的依赖都会明明白白地写在项目的配置文件中，后面在不同的机器上也能够很快地搭建起这个环境。</span>
+</span></span><span class="line"><span class="cl">uv init .
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># uv add等同于uv pip install，且会写入到工程依赖中</span>
+</span></span><span class="line"><span class="cl">uv add xxx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># uv remove等同于 uv pip uninstall，且会将xxx包从工程依赖中移除</span>
+</span></span><span class="line"><span class="cl">uv remove xxx
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查看工程依赖包的树状结构</span>
+</span></span><span class="line"><span class="cl">uv tree
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 同步锁定依赖（高级用法）根据 requirements.txt 或 requirements.lock 精确安装依赖，保持团队环境一致</span>
+</span></span><span class="line"><span class="cl">uv sync
+</span></span></code></pre></div><h2 id="6-注意事项"><strong>6. 注意事项</strong></h2>
+<h3 id="1在项目中更新依赖包并同步更新uvlockpyprojecttoml"><strong>(1)在项目中更新依赖包并同步更新uv.lock/pyproject.toml</strong></h3>
+<p>在使用 <strong>uv</strong> 管理 Python 项目依赖时，如果要引入或更新一个包，并保证 <strong>uv.lock</strong> 与 <strong>pyproject.toml</strong> 同步更新，可以按以下两种情况处理：</p>
+<hr>
+<h4 id="不知道目标包的具体版本号"><strong>不知道目标包的具体版本号</strong></h4>
+<p>以 langgraph 为例，有两种方法：</p>
+<p><strong>方法一（推荐）</strong></p>
+<p>直接移除再添加，让 uv 自动解析最新版本并写入配置：</p>
+<pre tabindex="0"><code>uv remove langgraph
+uv add langgraph
+</code></pre><p><strong>方法二（不推荐）</strong></p>
+<p>利用 uv lock &ndash;upgrade-package 升级锁文件：</p>
+<pre tabindex="0"><code>uv lock --upgrade-package langgraph
+uv sync
+</code></pre><blockquote>
+<p>缺点：此方法<strong>只会更新 uv.lock</strong>，不会同步更新 pyproject.toml，容易导致配置不一致。</p></blockquote>
+<hr>
+<h4 id="已知目标包的具体版本号"><strong>已知目标包的具体版本号</strong></h4>
+<p>显式指定版本更新：</p>
+<pre tabindex="0"><code>uv add langgraph==0.6.2
+</code></pre><p>这样会同时更新 pyproject.toml 和 uv.lock，保证依赖版本锁定一致。</p>
+<hr>
+<p>💡 <strong>小贴士</strong></p>
+<ul>
+<li>
+<p>uv add 会自动处理安装、依赖解析和配置文件更新，是 uv 最推荐的依赖变更方式。</p>
+</li>
+<li>
+<p>避免手动改 pyproject.toml 再运行 uv lock，因为容易遗漏同步步骤。</p>
+</li>
+<li>
+<p>如果想一次升级多个包，可用：</p>
+</li>
+</ul>
+<pre tabindex="0"><code>uv remove 包1 包2 &amp;&amp; uv add 包1 包2
+</code></pre>]]></content:encoded>
+    </item>
+    <item>
+      <title>基于Hugo和Github Action搭建blog</title>
+      <link>https://mackyan.github.io/zh/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BAblog/</link>
+      <pubDate>Tue, 05 Aug 2025 23:13:18 +0800</pubDate>
+      <guid>https://mackyan.github.io/zh/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BAblog/</guid>
+      <description>&lt;h3 id=&#34;基于hugo的blog搭建&#34;&gt;基于Hugo的blog搭建&lt;/h3&gt;
+&lt;h4 id=&#34;1-macos安装hugo&#34;&gt;1. macOS安装Hugo&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;brew install hugo
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;验证安装&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hugo version
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;实际安装版本：hugo v0.148.2&lt;/p&gt;
+&lt;h4 id=&#34;2-创建hugo博客项目&#34;&gt;2. 创建Hugo博客项目&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hugo new site mackyan --format yaml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; mackyan
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;3-添加主题&#34;&gt;3. 添加主题&lt;/h4&gt;
+&lt;p&gt;选择主题：以PaperMod为例&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git init
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git submodule add --depth&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果是 clone 了其他人的博客项目进行修改，则需要用以下命令进行初始化：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git submodule update --init --recursive
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果需要同步主题仓库的最新修改，需要运行以下命令：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git submodule update --remote
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;4-设置主题&#34;&gt;4. 设置主题&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;vim hugo.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;添加内容&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;theme: PaperMod
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;5-写第一篇文章&#34;&gt;5. 写第一篇文章&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hugo new posts/first.md
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;vim content/posts/first.md
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;新建的文章位于content/posts目录下，编辑内容如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;---
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;title: &amp;#34;First Blog Post&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;date: 2025-08-03
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;draft: false
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;---
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;欢迎来到我的 Hugo 博客！
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;6-本地预览博客&#34;&gt;6. 本地预览博客&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hugo server -D
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;打开浏览器访问：http://localhost:1313&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h3 id="基于hugo的blog搭建">基于Hugo的blog搭建</h3>
+<h4 id="1-macos安装hugo">1. macOS安装Hugo</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install hugo
+</span></span></code></pre></div><p>验证安装</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo version
+</span></span></code></pre></div><p>实际安装版本：hugo v0.148.2</p>
+<h4 id="2-创建hugo博客项目">2. 创建Hugo博客项目</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new site mackyan --format yaml
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> mackyan
+</span></span></code></pre></div><h4 id="3-添加主题">3. 添加主题</h4>
+<p>选择主题：以PaperMod为例</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git init
+</span></span><span class="line"><span class="cl">git submodule add --depth<span class="o">=</span><span class="m">1</span> https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
+</span></span></code></pre></div><p>如果是 clone 了其他人的博客项目进行修改，则需要用以下命令进行初始化：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git submodule update --init --recursive
+</span></span></code></pre></div><p>如果需要同步主题仓库的最新修改，需要运行以下命令：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git submodule update --remote
+</span></span></code></pre></div><h4 id="4-设置主题">4. 设置主题</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim hugo.yaml
+</span></span></code></pre></div><p>添加内容</p>
+<pre tabindex="0"><code>theme: PaperMod
+</code></pre><h4 id="5-写第一篇文章">5. 写第一篇文章</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new posts/first.md
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vim content/posts/first.md
+</span></span></code></pre></div><p>新建的文章位于content/posts目录下，编辑内容如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">title: &#34;First Blog Post&#34;
+</span></span><span class="line"><span class="cl">date: 2025-08-03
+</span></span><span class="line"><span class="cl">draft: false
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">欢迎来到我的 Hugo 博客！
+</span></span></code></pre></div><h4 id="6-本地预览博客">6. 本地预览博客</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo server -D
+</span></span></code></pre></div><p>打开浏览器访问：http://localhost:1313</p>
+<h4 id="7-配置博客信息可选">7. 配置博客信息（可选）</h4>
+<p>修改hugo.yaml中加入更多信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">baseURL: <span class="s2">&#34;https://mackyan.github.io/&#34;</span>
+</span></span><span class="line"><span class="cl">languageCode: zh-cn
+</span></span><span class="line"><span class="cl">title: Mack Yan
+</span></span><span class="line"><span class="cl">theme: PaperMod
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">enableEmoji: <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">pagination:
+</span></span><span class="line"><span class="cl">  disableAliases: <span class="nb">false</span>
+</span></span><span class="line"><span class="cl">  pagerSize: <span class="m">10</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">params:
+</span></span><span class="line"><span class="cl">  author: Mack
+</span></span><span class="line"><span class="cl">  ShowToc: <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">  ShowReadingTime: <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">  ShowPostNavLinks: <span class="nb">true</span>
+</span></span></code></pre></div><h3 id="使用github-actions自动部署">使用Github Actions自动部署</h3>
+<p>详细配置步骤参考资料2和资料4。</p>
+<!-- ![alt text](/images/成长曲线.jpg) -->
+<!-- <img src="/static/成长曲线.jpg" alt="Image Alt Text" style="width: 100%; height: auto;"> -->
+<p>目前有两个仓库：</p>
+<ul>
+<li>mackyan（private）：hugo博客的根目录</li>
+<li>mackyan.github.io（public）：存放hugo生成的静态文件，即mackyan/public目录</li>
+</ul>
+<p>在mackyan根目录下建立.github/workflows/hugo.yml文件，配置如下内容：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">push</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">workflow_dispatch</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">schedule</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># Runs everyday at 8:00 AM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0 0 * * *&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="nt">submodules</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="nt">fetch-depth</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup Hugo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-hugo@v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="nt">hugo-version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;latest&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build Web</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">hugo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy Web</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-gh-pages@v3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">              </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="nt">PERSONAL_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GH_PAGE_ACTION_TOKEN }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="nt">EXTERNAL_REPOSITORY</span><span class="p">:</span><span class="w"> </span><span class="l">mackyan/mackyan.github.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="nt">PUBLISH_BRANCH</span><span class="p">:</span><span class="w"> </span><span class="l">main</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="nt">PUBLISH_DIR</span><span class="p">:</span><span class="w"> </span><span class="l">./public</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="nt">commit_message</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.event.head_commit.message }}</span><span class="w">
+</span></span></span></code></pre></div><p>其中PERSONAL_TOKEN根据下图创建和使用:
+<img alt="action_token" loading="lazy" src="/zh/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BAblog/action_token.png"></p>
+<h3 id="总结">总结</h3>
+<p>当完成以上环境的部署之后，接下来的常见操作就是：</p>
+<ol>
+<li>
+<p>hugo new posts/xxx.md新建文章（或者 hugo new posts/xxx/index.md）</p>
+</li>
+<li>
+<p>添加或修改文章内容</p>
+</li>
+<li>
+<p>上传push更新修改到GitHub</p>
+</li>
+<li>
+<p>自动执行github actions，生成静态文件，部署到xxx.github.io的github pages</p>
+</li>
+<li>
+<p>个人网站查看网页文章是否生效</p>
+</li>
+</ol>
+<h3 id="参考资料">参考资料</h3>
+<blockquote>
+<ol>
+<li><a href="https://github.com/adityatelange/hugo-PaperMod/wiki/Installation">Hugo-PaperMod installation wiki</a></li>
+<li><a href="https://www.pseudoyu.com/zh/2022/05/29/deploy_your_blog_using_hugo_and_github_action">Hugo + GitHub Action，搭建你的博客自动发布系统</a></li>
+<li><a href="https://eddy.lu/posts/hugo/">搭建 Hugo 个人网站｜PaperMod 主题</a></li>
+<li><a href="https://blog.csdn.net/m0_55019159/article/details/139481456">使用github actions自动部署hugo博客（隐藏网站根目录）</a></li>
+<li><a href="https://tunan.org/posts/add-comment-system-to-hugopapermo/">给Hugo PaperMod增加giscus评论系统</a></li>
+<li><a href="https://lifeislife.cn/posts/papermod%E6%B7%BB%E5%8A%A0follow-rss%E8%AE%A4%E8%AF%81/">PaperMod添加Follow RSS订阅认证</a></li>
+</ol></blockquote>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>
