@@ -242,7 +242,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># 同步锁定依赖（高级用法）根据 requirements.txt 或 requirements.lock 精确安装依赖，保持团队环境一致</span>
 </span></span><span class="line"><span class="cl">uv sync
 </span></span></code></pre></div><h2 id="6-注意事项"><strong>6. 注意事项</strong></h2>
-<h3 id="1在项目中更新依赖包并同步更新uvlockpyprojecttoml"><strong>(1)在项目中更新依赖包并同步更新uv.lock/pyproject.toml</strong></h3>
+<h3 id="1-在项目中更新依赖包并同步更新uvlockpyprojecttoml"><strong>(1) 在项目中更新依赖包并同步更新uv.lock/pyproject.toml</strong></h3>
 <p>在使用 <strong>uv</strong> 管理 Python 项目依赖时，如果要引入或更新一个包，并保证 <strong>uv.lock</strong> 与 <strong>pyproject.toml</strong> 同步更新，可以按以下两种情况处理：</p>
 <hr>
 <h4 id="不知道目标包的具体版本号"><strong>不知道目标包的具体版本号</strong></h4>
