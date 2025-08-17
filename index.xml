@@ -14,34 +14,16 @@
       <link>https://mackyan.github.io/posts/2025-08-11_uv%E4%B8%80%E7%AB%99%E5%BC%8F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/</link>
       <pubDate>Mon, 11 Aug 2025 23:59:19 +0800</pubDate>
       <guid>https://mackyan.github.io/posts/2025-08-11_uv%E4%B8%80%E7%AB%99%E5%BC%8F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/</guid>
-      <description>&lt;h1 id=&#34;uvcondapoetry对比分析&#34;&gt;uv、conda、poetry对比分析&lt;/h1&gt;
-&lt;h2 id=&#34;1-本质定位差异&#34;&gt;&lt;strong&gt;1. 本质定位差异&lt;/strong&gt;&lt;/h2&gt;
+      <description>&lt;h3 id=&#34;uvcondapoetry对比分析&#34;&gt;uv、conda、poetry对比分析&lt;/h3&gt;
+&lt;h4 id=&#34;1-本质定位差异&#34;&gt;1. 本质定位差异&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;uv&lt;/strong&gt; → 由 Astral（原 Ruff 团队）开发的&lt;strong&gt;超高速 Python 包管理 + 虚拟环境管理工具&lt;/strong&gt;，定位是&lt;strong&gt;替代 pip + venv + pip-tools + poetry 的依赖管理部分&lt;/strong&gt;。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;poetry&lt;/strong&gt; → Python 生态内主流的&lt;strong&gt;项目依赖管理 + 构建发布工具&lt;/strong&gt;，偏全能型，但速度一般。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;conda&lt;/strong&gt; → 跨语言包管理器（Python、C/C++ 库等都能管），带自己的二进制包渠道（conda-forge、Anaconda），主要优势是&lt;strong&gt;科学计算依赖的二进制分发&lt;/strong&gt;。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;2-uv-相比-poetry--conda-的主要优势&#34;&gt;&lt;strong&gt;2. uv 相比 poetry / conda 的主要优势&lt;/strong&gt;&lt;/h2&gt;
-&lt;h3 id=&#34;1-极快的速度&#34;&gt;&lt;strong&gt;(1) 极快的速度&lt;/strong&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;核心是 &lt;strong&gt;Rust 实现 + 并行下载 + 本地缓存&lt;/strong&gt;，冷装比 pip/poetry 快数倍，热装基本秒级。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;官方实测：安装 100 个依赖的项目，uv 比 poetry 快 810 倍，比 conda 快 1520 倍。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;第一性原理&lt;/strong&gt;：速度取决于 IO 并发能力 + 解析算法效率。pip/poetry 都是 Python 实现，单线程解析，uv 用 Rust 并发解析 + 请求，效率差距天然存在。&lt;/p&gt;</description>
-      <content:encoded><![CDATA[<h1 id="uvcondapoetry对比分析">uv、conda、poetry对比分析</h1>
-<h2 id="1-本质定位差异"><strong>1. 本质定位差异</strong></h2>
+&lt;p&gt;&lt;strong&gt;poetry&lt;/strong&gt; → Python 生态内主流的&lt;strong&gt;项目依赖管理 + 构建发布工具&lt;/strong&gt;，偏全能型，但速度一般。&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<h3 id="uvcondapoetry对比分析">uv、conda、poetry对比分析</h3>
+<h4 id="1-本质定位差异">1. 本质定位差异</h4>
 <ul>
 <li>
 <p><strong>uv</strong> → 由 Astral（原 Ruff 团队）开发的<strong>超高速 Python 包管理 + 虚拟环境管理工具</strong>，定位是<strong>替代 pip + venv + pip-tools + poetry 的依赖管理部分</strong>。</p>
@@ -54,8 +36,8 @@
 </li>
 </ul>
 <hr>
-<h2 id="2-uv-相比-poetry--conda-的主要优势"><strong>2. uv 相比 poetry / conda 的主要优势</strong></h2>
-<h3 id="1-极快的速度"><strong>(1) 极快的速度</strong></h3>
+<h4 id="2-uv-相比-poetry--conda-的主要优势">2. uv 相比 poetry / conda 的主要优势</h4>
+<h5 id="1-极快的速度">(1) 极快的速度</h5>
 <ul>
 <li>
 <p>核心是 <strong>Rust 实现 + 并行下载 + 本地缓存</strong>，冷装比 pip/poetry 快数倍，热装基本秒级。</p>
@@ -67,7 +49,7 @@
 <blockquote>
 <p><strong>第一性原理</strong>：速度取决于 IO 并发能力 + 解析算法效率。pip/poetry 都是 Python 实现，单线程解析，uv 用 Rust 并发解析 + 请求，效率差距天然存在。</p></blockquote>
 <hr>
-<h3 id="2-与-pip-完全兼容"><strong>(2) 与 pip 完全兼容</strong></h3>
+<h5 id="2-与-pip-完全兼容">(2) 与 pip 完全兼容</h5>
 <ul>
 <li>
 <p>poetry 有自己的依赖解析器和 lock 格式，和 pip 不是完全兼容；conda 更是独立体系。</p>
@@ -80,7 +62,7 @@
 </li>
 </ul>
 <hr>
-<h3 id="3-内置跨项目共享缓存"><strong>(3) 内置跨项目共享缓存</strong></h3>
+<h5 id="3-内置跨项目共享缓存">(3) 内置跨项目共享缓存</h5>
 <ul>
 <li>
 <p>安装的 wheel/sdist 缓存是全局的，不同项目重复依赖无需重新下载/构建。</p>
@@ -90,7 +72,7 @@
 </li>
 </ul>
 <hr>
-<h3 id="4-单文件可执行零环境依赖"><strong>(4) 单文件可执行，零环境依赖</strong></h3>
+<h5 id="4-单文件可执行零环境依赖">(4) 单文件可执行，零环境依赖</h5>
 <ul>
 <li>
 <p>uv 是单独的二进制文件（类似 ripgrep、fd），直接下载运行，不依赖 Python 预安装。</p>
@@ -100,7 +82,7 @@
 </li>
 </ul>
 <hr>
-<h3 id="5-高效锁定与解析"><strong>(5) 高效锁定与解析</strong></h3>
+<h5 id="5-高效锁定与解析">(5) 高效锁定与解析</h5>
 <ul>
 <li>
 <p>uv 的解析器（基于 Rust）能在毫秒级完成依赖树解析并生成 uv.lock。</p>
@@ -113,7 +95,7 @@
 </li>
 </ul>
 <hr>
-<h3 id="6-轻量化--单一职责"><strong>(6) 轻量化 &amp; 单一职责</strong></h3>
+<h5 id="6-轻量化--单一职责">(6) 轻量化 &amp; 单一职责</h5>
 <ul>
 <li>
 <p>uv 目标是“快速安装、解析、锁定、运行”，构建/发布功能交给成熟工具（如 hatch、setuptools）。</p>
@@ -126,7 +108,7 @@
 </li>
 </ul>
 <hr>
-<h2 id="3-对比表"><strong>3. 对比表</strong></h2>
+<h4 id="3-对比表">3. 对比表</h4>
 <table>
   <thead>
       <tr>
@@ -194,7 +176,7 @@
   </tbody>
 </table>
 <hr>
-<h2 id="4-关键洞见"><strong>4. 关键洞见</strong></h2>
+<h4 id="4-关键洞见">4. 关键洞见</h4>
 <ol>
 <li>
 <p><strong>uv 是 Python 依赖管理的“加速器”</strong>，不是全能替代品，如果你的项目还需要构建/发布，可能需要配合 hatch、setuptools 等。</p>
@@ -210,7 +192,7 @@
 </li>
 </ol>
 <hr>
-<h2 id="5-常用命令大全"><strong>5. 常用命令大全</strong></h2>
+<h4 id="5-常用命令大全">5. 常用命令大全</h4>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 创建虚拟环境</span>
 </span></span><span class="line"><span class="cl">uv venv --python<span class="o">=</span>3.12
 </span></span><span class="line"><span class="cl">uv venv --python<span class="o">=</span>3.10
@@ -241,11 +223,11 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 同步锁定依赖（高级用法）根据 requirements.txt 或 requirements.lock 精确安装依赖，保持团队环境一致</span>
 </span></span><span class="line"><span class="cl">uv sync
-</span></span></code></pre></div><h2 id="6-注意事项"><strong>6. 注意事项</strong></h2>
-<h3 id="1-在项目中更新依赖包并同步更新uvlockpyprojecttoml"><strong>(1) 在项目中更新依赖包并同步更新uv.lock/pyproject.toml</strong></h3>
+</span></span></code></pre></div><h4 id="6-注意事项">6. 注意事项</h4>
+<h5 id="1-在项目中更新依赖包并同步更新uvlockpyprojecttoml">(1) 在项目中更新依赖包并同步更新uv.lock/pyproject.toml</h5>
 <p>在使用 <strong>uv</strong> 管理 Python 项目依赖时，如果要引入或更新一个包，并保证 <strong>uv.lock</strong> 与 <strong>pyproject.toml</strong> 同步更新，可以按以下两种情况处理：</p>
 <hr>
-<h4 id="不知道目标包的具体版本号"><strong>不知道目标包的具体版本号</strong></h4>
+<h6 id="不知道目标包的具体版本号">不知道目标包的具体版本号</h6>
 <p>以 langgraph 为例，有两种方法：</p>
 <p><strong>方法一（推荐）</strong></p>
 <p>直接移除再添加，让 uv 自动解析最新版本并写入配置：</p>
@@ -258,7 +240,7 @@ uv sync
 </code></pre><blockquote>
 <p>缺点：此方法<strong>只会更新 uv.lock</strong>，不会同步更新 pyproject.toml，容易导致配置不一致。</p></blockquote>
 <hr>
-<h4 id="已知目标包的具体版本号"><strong>已知目标包的具体版本号</strong></h4>
+<h6 id="已知目标包的具体版本号">已知目标包的具体版本号</h6>
 <p>显式指定版本更新：</p>
 <pre tabindex="0"><code>uv add langgraph==0.6.2
 </code></pre><p>这样会同时更新 pyproject.toml 和 uv.lock，保证依赖版本锁定一致。</p>
@@ -293,32 +275,7 @@ uv sync
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hugo new site mackyan --format yaml
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; mackyan
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;3-添加主题&#34;&gt;3. 添加主题&lt;/h4&gt;
-&lt;p&gt;选择主题：以PaperMod为例&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git init
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git submodule add --depth&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果是 clone 了其他人的博客项目进行修改，则需要用以下命令进行初始化：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git submodule update --init --recursive
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果需要同步主题仓库的最新修改，需要运行以下命令：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git submodule update --remote
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;4-设置主题&#34;&gt;4. 设置主题&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;vim hugo.yaml
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;添加内容&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;theme: PaperMod
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&#34;5-写第一篇文章&#34;&gt;5. 写第一篇文章&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hugo new posts/first.md
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;vim content/posts/first.md
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;新建的文章位于content/posts目录下，编辑内容如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;---
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;title: &amp;#34;First Blog Post&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;date: 2025-08-03
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;draft: false
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;---
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;欢迎来到我的 Hugo 博客！
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;6-本地预览博客&#34;&gt;6. 本地预览博客&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;hugo server -D
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;打开浏览器访问：http://localhost:1313&lt;/p&gt;</description>
+&lt;p&gt;选择主题：以PaperMod为例&lt;/p&gt;</description>
       <content:encoded><![CDATA[<h3 id="基于hugo的blog搭建">基于Hugo的blog搭建</h3>
 <h4 id="1-macos安装hugo">1. macOS安装Hugo</h4>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install hugo

@@ -13,7 +13,7 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <meta name="referrer" content="no-referrer-when-downgrade">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.b853a96e49b979b45a944a9326e2de0839d64c3a3c1c14c42ab4314612a087ca.css" integrity="sha256-uFOpbkm5ebRalEqTJuLeCDnWTDo8HBTEKrQxRhKgh8o=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://mackyan.github.io/images/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://mackyan.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://mackyan.github.io/favicon-32x32.png">
@@ -169,13 +169,9 @@
   <div class="entry-content">
     <p>uv、conda、poetry对比分析 1. 本质定位差异 uv → 由 Astral（原 Ruff 团队）开发的超高速 Python 包管理 &#43; 虚拟环境管理工具，定位是替代 pip &#43; venv &#43; pip-tools &#43; poetry 的依赖管理部分。
 poetry → Python 生态内主流的项目依赖管理 &#43; 构建发布工具，偏全能型，但速度一般。
-conda → 跨语言包管理器（Python、C/C&#43;&#43; 库等都能管），带自己的二进制包渠道（conda-forge、Anaconda），主要优势是科学计算依赖的二进制分发。
-2. uv 相比 poetry / conda 的主要优势 (1) 极快的速度 核心是 Rust 实现 &#43; 并行下载 &#43; 本地缓存，冷装比 pip/poetry 快数倍，热装基本秒级。
-官方实测：安装 100 个依赖的项目，uv 比 poetry 快 810 倍，比 conda 快 1520 倍。
-第一性原理：速度取决于 IO 并发能力 &#43; 解析算法效率。pip/poetry 都是 Python 实现，单线程解析，uv 用 Rust 并发解析 &#43; 请求，效率差距天然存在。
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-08-11 23:59:19 +0800 +0800'>2025-08-11</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;371 字&nbsp;·&nbsp;Mack</footer>
+  <footer class="entry-footer"><span title='2025-08-11 23:59:19 +0800 +0800'>2025-08-11</span>&nbsp;·&nbsp;4 分钟&nbsp;·&nbsp;1883 字&nbsp;·&nbsp;Mack</footer>
   <a class="entry-link" aria-label="post link to uv一站式环境管理工具" href="https://mackyan.github.io/posts/2025-08-11_uv%E4%B8%80%E7%AB%99%E5%BC%8F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/"></a>
 </article>
 
@@ -188,14 +184,9 @@ conda → 跨语言包管理器（Python、C/C&#43;&#43; 库等都能管），�
     <p>基于Hugo的blog搭建 1. macOS安装Hugo brew install hugo 验证安装
 hugo version 实际安装版本：hugo v0.148.2
 2. 创建Hugo博客项目 hugo new site mackyan --format yaml cd mackyan 3. 添加主题 选择主题：以PaperMod为例
-git init git submodule add --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod 如果是 clone 了其他人的博客项目进行修改，则需要用以下命令进行初始化：
-git submodule update --init --recursive 如果需要同步主题仓库的最新修改，需要运行以下命令：
-git submodule update --remote 4. 设置主题 vim hugo.yaml 添加内容
-theme: PaperMod 5. 写第一篇文章 hugo new posts/first.md vim content/posts/first.md 新建的文章位于content/posts目录下，编辑内容如下：
---- title: &#34;First Blog Post&#34; date: 2025-08-03 draft: false --- 欢迎来到我的 Hugo 博客！ 6. 本地预览博客 hugo server -D 打开浏览器访问：http://localhost:1313
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2025-08-05 23:13:18 +0800 +0800'>2025-08-05</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;217 字&nbsp;·&nbsp;Mack</footer>
+  <footer class="entry-footer"><span title='2025-08-05 23:13:18 +0800 +0800'>2025-08-05</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;889 字&nbsp;·&nbsp;Mack</footer>
   <a class="entry-link" aria-label="post link to 基于Hugo和Github Action搭建blog" href="https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BAblog/"></a>
 </article>
     </main>
