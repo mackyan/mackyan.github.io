@@ -2,19 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://mackyan.github.io/tags/env/</loc>
+    <lastmod>2025-08-11T23:59:29+08:00</lastmod>
+  </url><url>
     <loc>https://mackyan.github.io/</loc>
     <lastmod>2025-08-12T01:08:12+08:00</lastmod>
   </url><url>
     <loc>https://mackyan.github.io/posts/</loc>
     <lastmod>2025-08-11T23:59:29+08:00</lastmod>
   </url><url>
+    <loc>https://mackyan.github.io/tags/</loc>
+    <lastmod>2025-08-11T23:59:29+08:00</lastmod>
+  </url><url>
+    <loc>https://mackyan.github.io/tags/uv/</loc>
+    <lastmod>2025-08-11T23:59:29+08:00</lastmod>
+  </url><url>
     <loc>https://mackyan.github.io/posts/2025-08-11_uv%E4%B8%80%E7%AB%99%E5%BC%8F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/</loc>
     <lastmod>2025-08-11T23:59:29+08:00</lastmod>
   </url><url>
     <loc>https://mackyan.github.io/tags/blog/</loc>
-    <lastmod>2025-08-11T23:59:29+08:00</lastmod>
-  </url><url>
-    <loc>https://mackyan.github.io/tags/</loc>
     <lastmod>2025-08-11T23:59:29+08:00</lastmod>
   </url><url>
     <loc>https://mackyan.github.io/posts/2025-08-05_%E5%9F%BA%E4%BA%8Ehugo%E5%92%8Cgithub-action%E6%90%AD%E5%BB%BAblog/</loc>
