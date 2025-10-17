@@ -4,7 +4,7 @@
     <title>Mack Yan</title>
     <link>https://mackyan.github.io/</link>
     <description>feedId:177369521563972608+userId:164686159870940160 Recent content on Mack Yan</description>
-    <generator>Hugo -- 0.151.0</generator>
+    <generator>Hugo -- 0.151.2</generator>
     <language>zh</language>
     <copyright>2025 Mack Yan</copyright>
     <lastBuildDate>Tue, 12 Aug 2025 00:27:49 +0800</lastBuildDate>
@@ -47,7 +47,8 @@
 </li>
 </ul>
 <blockquote>
-<p><strong>第一性原理</strong>：速度取决于 IO 并发能力 + 解析算法效率。pip/poetry 都是 Python 实现，单线程解析，uv 用 Rust 并发解析 + 请求，效率差距天然存在。</p></blockquote>
+<p><strong>第一性原理</strong>：速度取决于 IO 并发能力 + 解析算法效率。pip/poetry 都是 Python 实现，单线程解析，uv 用 Rust 并发解析 + 请求，效率差距天然存在。</p>
+</blockquote>
 <hr>
 <h5 id="2-与-pip-完全兼容">(2) 与 pip 完全兼容</h5>
 <ul>
@@ -238,7 +239,8 @@ uv add langgraph
 <pre tabindex="0"><code>uv lock --upgrade-package langgraph
 uv sync
 </code></pre><blockquote>
-<p>缺点：此方法<strong>只会更新 uv.lock</strong>，不会同步更新 pyproject.toml，容易导致配置不一致。</p></blockquote>
+<p>缺点：此方法<strong>只会更新 uv.lock</strong>，不会同步更新 pyproject.toml，容易导致配置不一致。</p>
+</blockquote>
 <hr>
 <h6 id="已知目标包的具体版本号">已知目标包的具体版本号</h6>
 <p>显式指定版本更新：</p>
@@ -405,7 +407,8 @@ uv sync
 <li><a href="https://blog.csdn.net/m0_55019159/article/details/139481456">使用github actions自动部署hugo博客（隐藏网站根目录）</a></li>
 <li><a href="https://tunan.org/posts/add-comment-system-to-hugopapermo/">给Hugo PaperMod增加giscus评论系统</a></li>
 <li><a href="https://lifeislife.cn/posts/papermod%E6%B7%BB%E5%8A%A0follow-rss%E8%AE%A4%E8%AF%81/">PaperMod添加Follow RSS订阅认证</a></li>
-</ol></blockquote>
+</ol>
+</blockquote>
 ]]></content:encoded>
     </item>
     <item>

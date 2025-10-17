@@ -4,7 +4,7 @@
     <title>Uv on Mack Yan</title>
     <link>https://mackyan.github.io/tags/uv/</link>
     <description>feedId:177369521563972608+userId:164686159870940160 Recent content in Uv on Mack Yan</description>
-    <generator>Hugo -- 0.151.0</generator>
+    <generator>Hugo -- 0.151.2</generator>
     <language>zh</language>
     <copyright>2025 Mack Yan</copyright>
     <lastBuildDate>Mon, 11 Aug 2025 23:59:29 +0800</lastBuildDate>
@@ -47,7 +47,8 @@
 </li>
 </ul>
 <blockquote>
-<p><strong>第一性原理</strong>：速度取决于 IO 并发能力 + 解析算法效率。pip/poetry 都是 Python 实现，单线程解析，uv 用 Rust 并发解析 + 请求，效率差距天然存在。</p></blockquote>
+<p><strong>第一性原理</strong>：速度取决于 IO 并发能力 + 解析算法效率。pip/poetry 都是 Python 实现，单线程解析，uv 用 Rust 并发解析 + 请求，效率差距天然存在。</p>
+</blockquote>
 <hr>
 <h5 id="2-与-pip-完全兼容">(2) 与 pip 完全兼容</h5>
 <ul>
@@ -238,7 +239,8 @@ uv add langgraph
 <pre tabindex="0"><code>uv lock --upgrade-package langgraph
 uv sync
 </code></pre><blockquote>
-<p>缺点：此方法<strong>只会更新 uv.lock</strong>，不会同步更新 pyproject.toml，容易导致配置不一致。</p></blockquote>
+<p>缺点：此方法<strong>只会更新 uv.lock</strong>，不会同步更新 pyproject.toml，容易导致配置不一致。</p>
+</blockquote>
 <hr>
 <h6 id="已知目标包的具体版本号">已知目标包的具体版本号</h6>
 <p>显式指定版本更新：</p>
