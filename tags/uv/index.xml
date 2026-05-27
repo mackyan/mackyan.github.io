@@ -4,7 +4,7 @@
     <title>Uv on Mack Yan</title>
     <link>https://mackyan.github.io/tags/uv/</link>
     <description>feedId:177369521563972608+userId:164686159870940160 Recent content in Uv on Mack Yan</description>
-    <generator>Hugo -- 0.161.1</generator>
+    <generator>Hugo -- 0.162.0</generator>
     <language>zh</language>
     <copyright>2025 Mack Yan</copyright>
     <lastBuildDate>Mon, 11 Aug 2025 23:59:29 +0800</lastBuildDate>
@@ -111,70 +111,70 @@
 <hr>
 <h4 id="3-对比表">3. 对比表</h4>
 <table>
-  <thead>
-      <tr>
-          <th><strong>维度</strong></th>
-          <th><strong>uv</strong></th>
-          <th><strong>poetry</strong></th>
-          <th><strong>conda</strong></th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>实现语言</td>
-          <td>Rust</td>
-          <td>Python</td>
-          <td>Python/C 混合</td>
-      </tr>
-      <tr>
-          <td>安装速度</td>
-          <td><strong>极快</strong>（秒级）</td>
-          <td>中等（pip 级别）</td>
-          <td>慢（解析耗时长）</td>
-      </tr>
-      <tr>
-          <td>依赖解析</td>
-          <td>Rust 并发解析</td>
-          <td>Python 单线程解析</td>
-          <td>SAT 求解器，慢但支持跨语言</td>
-      </tr>
-      <tr>
-          <td>缓存机制</td>
-          <td>全局共享缓存</td>
-          <td>项目级+有限全局</td>
-          <td>全局，但更新容易触发重下</td>
-      </tr>
-      <tr>
-          <td>与 pip 兼容性</td>
-          <td><strong>完全兼容</strong></td>
-          <td>部分（lock 不兼容）</td>
-          <td>基本不兼容</td>
-      </tr>
-      <tr>
-          <td>二进制分发</td>
-          <td>依赖 PyPI wheel</td>
-          <td>依赖 PyPI wheel</td>
-          <td><strong>内置二进制</strong>（科学计算友好）</td>
-      </tr>
-      <tr>
-          <td>适合场景</td>
-          <td>现代 Python 项目，追求极致速度</td>
-          <td>全能型 Python 项目管理</td>
-          <td>跨语言依赖、大型科学计算</td>
-      </tr>
-      <tr>
-          <td>构建/发布</td>
-          <td>无（交给 hatch 等）</td>
-          <td>内置</td>
-          <td>无</td>
-      </tr>
-      <tr>
-          <td>安装体积</td>
-          <td><strong>单二进制，小</strong></td>
-          <td>依赖 Python</td>
-          <td>Anaconda 大，Miniconda 中等</td>
-      </tr>
-  </tbody>
+	<thead>
+			<tr>
+					<th><strong>维度</strong></th>
+					<th><strong>uv</strong></th>
+					<th><strong>poetry</strong></th>
+					<th><strong>conda</strong></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>实现语言</td>
+					<td>Rust</td>
+					<td>Python</td>
+					<td>Python/C 混合</td>
+			</tr>
+			<tr>
+					<td>安装速度</td>
+					<td><strong>极快</strong>（秒级）</td>
+					<td>中等（pip 级别）</td>
+					<td>慢（解析耗时长）</td>
+			</tr>
+			<tr>
+					<td>依赖解析</td>
+					<td>Rust 并发解析</td>
+					<td>Python 单线程解析</td>
+					<td>SAT 求解器，慢但支持跨语言</td>
+			</tr>
+			<tr>
+					<td>缓存机制</td>
+					<td>全局共享缓存</td>
+					<td>项目级+有限全局</td>
+					<td>全局，但更新容易触发重下</td>
+			</tr>
+			<tr>
+					<td>与 pip 兼容性</td>
+					<td><strong>完全兼容</strong></td>
+					<td>部分（lock 不兼容）</td>
+					<td>基本不兼容</td>
+			</tr>
+			<tr>
+					<td>二进制分发</td>
+					<td>依赖 PyPI wheel</td>
+					<td>依赖 PyPI wheel</td>
+					<td><strong>内置二进制</strong>（科学计算友好）</td>
+			</tr>
+			<tr>
+					<td>适合场景</td>
+					<td>现代 Python 项目，追求极致速度</td>
+					<td>全能型 Python 项目管理</td>
+					<td>跨语言依赖、大型科学计算</td>
+			</tr>
+			<tr>
+					<td>构建/发布</td>
+					<td>无（交给 hatch 等）</td>
+					<td>内置</td>
+					<td>无</td>
+			</tr>
+			<tr>
+					<td>安装体积</td>
+					<td><strong>单二进制，小</strong></td>
+					<td>依赖 Python</td>
+					<td>Anaconda 大，Miniconda 中等</td>
+			</tr>
+	</tbody>
 </table>
 <hr>
 <h4 id="4-关键洞见">4. 关键洞见</h4>
