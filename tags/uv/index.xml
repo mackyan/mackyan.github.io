@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Uv on Mack Yan</title>
-    <link>https://mackyan.github.io/tags/uv/</link>
+    <link>https://www.mackyan.com/tags/uv/</link>
     <description>feedId:177369521563972608+userId:164686159870940160 Recent content in Uv on Mack Yan</description>
     <generator>Hugo -- 0.168.0</generator>
     <language>zh</language>
     <copyright>2025 Mack Yan</copyright>
     <lastBuildDate>Mon, 11 Aug 2025 23:59:29 +0800</lastBuildDate>
-    <atom:link href="https://mackyan.github.io/tags/uv/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.mackyan.com/tags/uv/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>uv一站式环境管理工具</title>
-      <link>https://mackyan.github.io/posts/2025-08-11_uv%E4%B8%80%E7%AB%99%E5%BC%8F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/</link>
+      <link>https://www.mackyan.com/posts/2025-08-11_uv%E4%B8%80%E7%AB%99%E5%BC%8F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/</link>
       <pubDate>Mon, 11 Aug 2025 23:59:19 +0800</pubDate>
-      <guid>https://mackyan.github.io/posts/2025-08-11_uv%E4%B8%80%E7%AB%99%E5%BC%8F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/</guid>
+      <guid>https://www.mackyan.com/posts/2025-08-11_uv%E4%B8%80%E7%AB%99%E5%BC%8F%E7%8E%AF%E5%A2%83%E7%AE%A1%E7%90%86/</guid>
       <description>&lt;h3 id=&#34;uvcondapoetry对比分析&#34;&gt;uv、conda、poetry对比分析&lt;/h3&gt;
 &lt;h4 id=&#34;1-本质定位差异&#34;&gt;1. 本质定位差异&lt;/h4&gt;
 &lt;ul&gt;

@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code 速查表</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%8C%A8%EF%B8%8F%3C/text%3E%3C/svg%3E">
+    <style>
+        /* === RESET & BASE === */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            /* Section colors */
+            --keyboard-bg: #EFF6FF;
+            --keyboard-header: #2563EB;
+            --slash-bg: #F5F3FF;
+            --slash-header: #7C3AED;
+            --skills-bg: #ECFDF5;
+            --skills-header: #059669;
+            --memory-bg: #FFFBEB;
+            --memory-header: #D97706;
+            --config-bg: #FFF7ED;
+            --config-header: #C2410C;
+            --workflows-bg: #FEF2F2;
+            --workflows-header: #DC2626;
+            --mcp-bg: #ECFEFF;
+            --mcp-header: #0891B2;
+            --hooks-bg: #FDF2F8;
+            --hooks-header: #DB2777;
+            --cli-bg: #F9FAFB;
+            --cli-header: #4B5563;
+            --footer-bg: #1F2937;
+            --footer-text: #F9FAFB;
+
+            /* Typography */
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', monospace;
+        }
+
+        html {
+            font-size: 12px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            line-height: 1.15;
+            background: #fff;
+            color: #1F2937;
+            padding: 6mm;
+        }
+
+        code {
+            font-family: var(--font-mono);
+        }
+
+        /* === PAGE LAYOUT === */
+        @page {
+            size: A4 landscape;
+            margin: 8mm;
+        }
+
+        .page {
+            width: 100%;
+            max-width: 300mm;
+            margin: 0 auto;
+        }
+
+        /* === HEADER === */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2mm;
+            padding-bottom: 1mm;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .header h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .header-meta {
+            font-size: 0.75rem;
+            color: #6B7280;
+            text-align: right;
+        }
+
+        .header-meta .version-info {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .header-meta .last-updated {
+            display: block;
+            font-size: 0.7rem;
+            color: #9CA3AF;
+        }
+
+        /* === CHANGELOG / REVIEW NOTES === */
+        .changelog {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border: 1px solid #F59E0B;
+            border-radius: 4px;
+            padding: 1.5mm 3mm;
+            margin-bottom: 2mm;
+            font-size: 0.72rem;
+        }
+
+        .changelog-header {
+            font-weight: 700;
+            color: #92400E;
+            margin-bottom: 0.5mm;
+            display: flex;
+            align-items: center;
+            gap: 1mm;
+            user-select: none;
+        }
+
+        .changelog-dismiss {
+            margin-left: auto;
+            font-size: 0.85rem;
+            color: #92400E;
+            cursor: pointer;
+            opacity: 0.6;
+            line-height: 1;
+        }
+
+        .changelog-dismiss:hover {
+            opacity: 1;
+        }
+
+        .changelog-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1mm 4mm;
+            color: #78350F;
+            list-style: none;
+        }
+
+        .changelog-list li {
+            display: block;
+            line-height: 1.4;
+        }
+
+        .changelog-list li::before {
+            content: "•";
+            color: #F59E0B;
+            font-weight: bold;
+            margin-right: 1mm;
+        }
+
+        .review {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border-color: #3B82F6;
+        }
+
+        .review .changelog-header,
+        .review .changelog-dismiss {
+            color: #1E40AF;
+        }
+
+        .review .changelog-list {
+            color: #1E3A8A;
+        }
+
+        .review .changelog-list li::before {
+            color: #3B82F6;
+        }
+
+        .review-tag {
+            font-weight: 700;
+            margin-right: 0.5mm;
+        }
+
+        /* === MAIN GRID === */
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2mm;
+            align-items: stretch;
+        }
+
+        .col {
+            display: flex;
+            flex-direction: column;
+            gap: 2mm;
+            min-width: 0;
+        }
+
+        /* Last section in each column stretches to fill space */
+        .col>.section:last-child {
+            flex: 1;
+        }
+
+        /* === SECTION BASE === */
+        .section {
+            border-radius: 3px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-header {
+            padding: 1.2mm 2mm;
+            color: white;
+            font-weight: 700;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            gap: 1mm;
+        }
+
+        .section-content {
+            padding: 1.5mm 2.5mm;
+            flex: 1;
+        }
+
+        /* === SUB-SECTION === */
+        .sub-header {
+            font-weight: 700;
+            font-style: italic;
+            font-size: 0.75rem;
+            color: #374151;
+            margin-top: 1.2mm;
+            margin-bottom: 0.4mm;
+            padding-bottom: 0.3mm;
+            border-bottom: 1px dotted rgba(0, 0, 0, 0.15);
+        }
+
+        .sub-header:first-child {
+            margin-top: 0;
+        }
+
+        /* === KEY-VALUE ROWS === */
+        .row {
+            display: flex;
+            gap: 1.5mm;
+            padding: 0.3mm 0;
+            line-height: 1.2;
+        }
+
+        .key {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #1F2937;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .desc {
+            font-size: 0.8rem;
+            color: #4B5563;
+            flex: 1;
+        }
+
+        .note {
+            font-size: 0.72rem;
+            color: #6B7280;
+            padding: 0.3mm 0;
+            line-height: 1.25;
+        }
+
+        .removed .key {
+            text-decoration: line-through;
+            color: #9CA3AF;
+        }
+
+        /* === KEYCAP STYLE === */
+        .keycap {
+            display: inline-block;
+            background: linear-gradient(180deg, #FAFAFA 0%, #E5E7EB 100%);
+            border: 1px solid #D1D5DB;
+            border-radius: 2px;
+            padding: 0.2mm 1.2mm;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #374151;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+            margin-right: 0.3mm;
+        }
+
+        /* === BADGES === */
+        /* NEW badges: add data-added="YYYY-MM-DD" when adding. Auto-hidden after 14 days via JS. */
+        .badge-new,
+        .badge-chg {
+            display: inline-block;
+            color: white;
+            font-size: 0.55rem;
+            font-weight: 700;
+            padding: 0.2mm 1mm;
+            border-radius: 2px;
+            margin-left: 1mm;
+            vertical-align: middle;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .badge-new {
+            background: #EF4444;
+        }
+
+        /* CHG badges mark entries corrected against the previous (v2.1.81) sheet. */
+        .badge-chg {
+            background: #2563EB;
+        }
+
+        /* === SECTION SPECIFIC COLORS === */
+        .section-keyboard { background: var(--keyboard-bg); }
+        .section-keyboard .section-header { background: var(--keyboard-header); }
+        .section-slash { background: var(--slash-bg); }
+        .section-slash .section-header { background: var(--slash-header); }
+        .section-skills { background: var(--skills-bg); }
+        .section-skills .section-header { background: var(--skills-header); }
+        .section-memory { background: var(--memory-bg); }
+        .section-memory .section-header { background: var(--memory-header); }
+        .section-workflows { background: var(--workflows-bg); }
+        .section-workflows .section-header { background: var(--workflows-header); }
+        .section-mcp { background: var(--mcp-bg); }
+        .section-mcp .section-header { background: var(--mcp-header); }
+        .section-hooks { background: var(--hooks-bg); }
+        .section-hooks .section-header { background: var(--hooks-header); }
+        .section-cli { background: var(--cli-bg); }
+        .section-cli .section-header { background: var(--cli-header); }
+        .section-config { background: var(--config-bg); }
+        .section-config .section-header { background: var(--config-header); }
+
+        /* === FOOTER === */
+        .footer {
+            margin-top: 2mm;
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 1.5mm 2.5mm;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5mm;
+        }
+
+        .footer-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2mm;
+            align-items: center;
+        }
+
+        .footer-label {
+            font-weight: 700;
+            color: #9CA3AF;
+            margin-right: 1mm;
+        }
+
+        .footer-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 1mm;
+        }
+
+        .footer-item code {
+            font-family: var(--font-mono);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3mm 1mm;
+            border-radius: 2px;
+        }
+
+        .footer-sep {
+            color: #6B7280;
+        }
+
+        .footer a {
+            color: #93C5FD;
+        }
+
+        /* === COMPACT MULTI-COLUMN LISTS === */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 3mm;
+        }
+
+        /* === OS TOGGLE === */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 3mm;
+        }
+
+        .os-toggle {
+            display: flex;
+            border: 1px solid #9CA3AF;
+            border-radius: 5px;
+            overflow: hidden;
+            background: #F3F4F6;
+        }
+
+        .os-btn {
+            background: #fff;
+            border: none;
+            padding: 3px 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            line-height: 1;
+            color: #6B7280;
+            transition: background 0.15s, color 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .os-btn+.os-btn {
+            border-left: 1px solid #9CA3AF;
+        }
+
+        .os-btn.active {
+            background: #111827;
+            color: #fff;
+        }
+
+        .os-btn:hover:not(.active) {
+            background: #F3F4F6;
+        }
+
+        /* === PRINT STYLES === */
+        @media print {
+            html {
+                font-size: 7.2px !important;
+            }
+
+            body {
+                padding: 0;
+                background: white;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .page {
+                max-width: none;
+                width: 100%;
+            }
+
+            .main-grid,
+            .col {
+                gap: 1.5mm;
+            }
+
+            .section,
+            .section-content,
+            .row {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .sub-header {
+                break-after: avoid;
+                page-break-after: avoid;
+                margin-top: 0.8mm;
+            }
+
+            .sub-header+.row,
+            .sub-header+.two-col {
+                break-before: avoid;
+                page-break-before: avoid;
+            }
+
+            .key,
+            .keycap,
+            code,
+            .footer-item code {
+                font-family: 'Courier New', 'Courier', monospace !important;
+            }
+
+            .section-header {
+                padding: 0.8mm 2mm;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .section-content {
+                padding: 1mm 2mm;
+            }
+
+            .row {
+                padding: 0.15mm 0;
+            }
+
+            .keycap {
+                background: #F3F4F6 !important;
+                box-shadow: none;
+                border: 1px solid #9CA3AF;
+            }
+
+            .footer {
+                margin-top: 1mm;
+                padding: 1mm 2mm;
+                background: #374151 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .os-toggle,
+            .changelog {
+                display: none !important;
+            }
+
+            .header {
+                margin-bottom: 1.5mm;
+            }
+        }
+
+        /* === RESPONSIVE === */
+        @media screen and (max-width: 1100px) {
+            html {
+                font-size: 10px;
+            }
+
+            .main-grid {
+                grid-template-columns: repeat(2, 1fr);
+                align-items: start;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            html {
+                font-size: 11px;
+            }
+
+            body {
+                padding: 16px;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+                white-space: nowrap;
+            }
+
+            .header {
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+
+            .header-right {
+                gap: 2mm;
+            }
+
+            .os-toggle {
+                order: -1;
+            }
+
+            .os-btn {
+                padding: 2px 6px;
+            }
+
+            .os-btn svg {
+                width: 11px;
+                height: 11px;
+            }
+
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .key {
+                white-space: normal;
+                word-break: break-all;
+                max-width: 55%;
+            }
+
+            .footer-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2px;
+            }
+
+            .changelog-list {
+                flex-direction: column;
+                gap: 1mm;
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <!-- HEADER -->
+        <header class="header">
+            <h1>Claude Code 速查表</h1>
+            <div class="header-right">
+                <div class="os-toggle" id="osToggle">
+                    <button class="os-btn active" data-os="mac" title="Mac 快捷键"><svg width="14" height="14" viewBox="0 0 814 1000" fill="currentColor">
+                            <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57.8-155.5-127.4c-58.4-83-106.3-211.5-106.3-334.2 0-196.5 127.8-300.9 253.3-300.9 66.8 0 122.4 43.4 164.1 43.4 39.5 0 101.1-46 176.2-46 28.5 0 130.9 2.6 198.3 99.1zm-169.5-92.8c31.2-37 52.4-88.1 52.4-139.3 0-7.1-.6-14.3-1.9-20.1-50 1.6-109.2 33.3-145 75.1-25.8 29.3-52.4 79.8-52.4 131.6 0 7.8.6 15.6 1.3 18.2 2.6.6 6.4 1.3 10.3 1.3 44.7 0 101.1-30.5 135.3-66.8z"></path>
+                        </svg></button>
+                    <button class="os-btn" data-os="win" title="Windows 快捷键"><svg width="14" height="14" viewBox="0 0 88 88" fill="currentColor">
+                            <path d="M0 12.402l35.687-4.86.016 34.423-35.67.203zm35.67 33.529l.028 34.453L.028 71.48l-.026-25.55zm4.326-39.025L87.314 0v41.527l-47.318.376zm47.329 39.349l-.011 41.34-47.318-6.678-.066-34.739z"></path>
+                        </svg></button>
+                </div>
+                <div class="header-meta">
+                    <span class="version-info">Claude Code v2.1.306</span>
+                    <span class="last-updated">最后更新：2026年10月21日 · 已对照官方文档复核</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- CHANGELOG -->
+        <div class="changelog">
+            <div class="changelog-header"><a href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #92400E;">📋 近期更新</a> <span class="changelog-dismiss" onclick="this.closest('.changelog').remove()">✕</span></div>
+            <ul class="changelog-list">
+                <li>终端/VS Code 默认权限模式改为 <code>auto</code>（v2.1.283+）</li>
+                <li>后台会话：<code>claude --bg</code> · <code>claude agents</code> · <code>/background</code></li>
+                <li>动态工作流：<code>/deep-research</code> · <code>/effort ultracode</code></li>
+                <li><code>/goal</code> 跨轮次持续工作直到条件达成</li>
+                <li><code>/code-review</code> 本地审查（<code>ultra</code> 走云端多代理）</li>
+                <li>空闲压缩：200K+ 会话空闲约 54 分钟自动预压缩（v2.1.299）</li>
+                <li><code>/auto-mode-setup</code> 引导配置 auto 模式环境（v2.1.304）</li>
+            </ul>
+        </div>
+
+        <!-- REVIEW NOTES -->
+        <div class="changelog review">
+            <div class="changelog-header">🔍 本版修订（相对 v2.1.81 旧版） <span class="changelog-dismiss" onclick="this.closest('.changelog').remove()">✕</span></div>
+            <ul class="changelog-list">
+                <li><span class="review-tag">已移除</span><code>/vim</code>（→ <code>/config</code> 编辑模式）· <code>/pr-comments</code> · <code>/ultraplan</code> · 内置 Bash 代理</li>
+                <li><span class="review-tag">改键</span>停止后台代理 <code>Ctrl+F</code> → <code>Ctrl+X Ctrl+K</code>；会话选择器 P/R/A/B → <code>Space</code>/<code>Ctrl+R</code>/<code>Ctrl+A</code>/<code>Ctrl+B</code></li>
+                <li><span class="review-tag">更正</span><code>Ctrl+L</code> 是重绘不是清屏 · <code>/cost</code> 现为 <code>/usage</code> 别名 · <code>/fork</code> ≠ <code>/branch</code> · <code>/simplify</code> 为 4 个代理 · Explore 不再固定 Haiku</li>
+                <li><span class="review-tag">更正</span>自动压缩不是 95%，而是接近模型上限 · <code>--remote</code> → <code>--cloud</code> · <code>--console</code> → <code>claude auth login --console</code> · SSE 已弃用</li>
+            </ul>
+        </div>
+
+        <!-- MAIN GRID -->
+        <main class="main-grid">
+
+            <!-- ============ COLUMN 1: KEYBOARD + MCP + MEMORY ============ -->
+            <div class="col">
+                <!-- KEYBOARD SHORTCUTS -->
+                <section class="section section-keyboard">
+                    <div class="section-header">⌨️ 键盘快捷键</div>
+                    <div class="section-content">
+                        <div class="sub-header">常规控制</div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">C</span></span> <span class="desc">中断；空闲时清空输入，再按退出</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">D</span></span> <span class="desc">退出会话（按两次确认）</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Esc</span></span> <span class="desc">打断 Claude / 关闭对话框</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Esc</span><span class="keycap">Esc</span></span> <span class="desc">清空草稿；空输入时打开回退菜单</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">L</span></span> <span class="desc">重绘屏幕（保留历史）<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">O</span></span> <span class="desc">转录视图（工具细节 / 思考）</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">R</span></span> <span class="desc">反向搜索历史</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">G</span></span> <span class="desc">在外部编辑器中编辑提示</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">B</span></span> <span class="desc">Bash/代理转入后台（tmux 按两次）</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">T</span></span> <span class="desc">显示/隐藏任务清单</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">S</span></span> <span class="desc">暂存 / 恢复当前提示<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row" data-paste="1"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">V</span></span> <span class="desc">粘贴图片</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">Enter</span></span> <span class="desc">立即发送排队消息<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">X</span><span class="keycap">Ctrl</span><span class="keycap">K</span></span> <span class="desc">停止全部后台子代理（3 秒内按两次）<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">Z</span></span> <span class="desc">挂起（Unix，<code>fg</code> 恢复）</span></div>
+
+                        <div class="sub-header">模式切换</div>
+                        <div class="row"><span class="key"><span class="keycap">⇧</span><span class="keycap">Tab</span></span> <span class="desc">循环权限模式</span></div>
+                        <div class="row"><span class="key"><span class="keycap">⌥</span><span class="keycap">P</span></span> <span class="desc">切换模型（保留输入）</span></div>
+                        <div class="row"><span class="key"><span class="keycap">⌥</span><span class="keycap">T</span></span> <span class="desc">切换扩展思考（5.5 / Fable 恒开）</span></div>
+                        <div class="row"><span class="key"><span class="keycap">⌥</span><span class="keycap">O</span></span> <span class="desc">切换快速模式<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+
+                        <div class="sub-header">行编辑</div>
+                        <div class="two-col">
+                            <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">A</span>/<span class="keycap">E</span></span> <span class="desc">行首/行尾</span></div>
+                            <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">W</span></span> <span class="desc">删前一段</span></div>
+                            <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">K</span></span> <span class="desc">删至行尾</span></div>
+                            <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">U</span></span> <span class="desc">删至行首</span></div>
+                            <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">Y</span></span> <span class="desc">粘贴已删</span></div>
+                            <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">_</span></span> <span class="desc">撤销编辑</span></div>
+                        </div>
+
+                        <div class="sub-header">换行</div>
+                        <div class="row"><span class="key"><span class="keycap">\</span><span class="keycap">Enter</span></span> <span class="desc">所有终端通用</span></div>
+                        <div class="row"><span class="key"><span class="keycap">⇧</span><span class="keycap">Enter</span></span> <span class="desc">iTerm2/Ghostty/Kitty/WT 原生，其余跑 <code>/terminal-setup</code></span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">J</span></span> <span class="desc">控制序列，免配置</span></div>
+
+                        <div class="sub-header">前缀</div>
+                        <div class="two-col">
+                            <div class="row"><span class="key">/</span> <span class="desc">命令 / 技能</span></div>
+                            <div class="row"><span class="key">!</span> <span class="desc">Shell 模式</span></div>
+                            <div class="row"><span class="key">@</span> <span class="desc">文件 / MCP 资源</span></div>
+                            <div class="row"><span class="key">:</span> <span class="desc">Emoji 短码<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                            <div class="row"><span class="key">?</span> <span class="desc">快捷键帮助</span></div>
+                        </div>
+
+                        <div class="sub-header">会话选择器（/resume）<span class="badge-chg">改</span></div>
+                        <div class="two-col">
+                            <div class="row"><span class="key"><span class="keycap">↑↓</span></span> <span class="desc">导航（j/k）</span></div>
+                            <div class="row"><span class="key"><span class="keycap">←→</span></span> <span class="desc">展开/折叠</span></div>
+                            <div class="row"><span class="key"><span class="keycap">Space</span></span> <span class="desc">预览</span></div>
+                            <div class="row"><span class="key"><span class="keycap">1-9</span></span> <span class="desc">按序号恢复</span></div>
+                            <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">R</span></span> <span class="desc">重命名</span></div>
+                            <div class="row"><span class="key"><span class="keycap">/</span></span> <span class="desc">搜索（可贴 PR 链接）</span></div>
+                            <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">A</span></span> <span class="desc">所有项目</span></div>
+                            <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">B</span></span> <span class="desc">当前分支</span></div>
+                            <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">W</span></span> <span class="desc">所有 worktree</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- MCP SERVERS -->
+                <section class="section section-mcp">
+                    <div class="section-header">🔌 MCP 服务器</div>
+                    <div class="section-content">
+                        <div class="sub-header">添加服务器（claude mcp add）</div>
+                        <div class="row"><span class="key">-t http &lt;name&gt; &lt;url&gt;</span> <span class="desc">远程 HTTP（推荐，支持 OAuth）</span></div>
+                        <div class="row"><span class="key">&lt;name&gt; -- &lt;cmd&gt;</span> <span class="desc">本地 stdio（默认传输）</span></div>
+                        <div class="row"><span class="key">-t sse</span> <span class="desc">已弃用，改用 http（自动回退）<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">add-json</span> <span class="desc">JSON 定义，含 WebSocket</span></div>
+                        <div class="row"><span class="key">-e KEY=v / -H</span> <span class="desc">环境变量 / 请求头</span></div>
+                        <div class="row"><span class="key">-s local|project|user</span> <span class="desc">指定作用域</span></div>
+                        <div class="sub-header">作用域</div>
+                        <div class="row"><span class="key">Local</span> <span class="desc">~/.claude.json（当前项目，默认）</span></div>
+                        <div class="row"><span class="key">Project</span> <span class="desc">.mcp.json（随 VCS 共享，需批准）</span></div>
+                        <div class="row"><span class="key">User</span> <span class="desc">~/.claude.json（所有项目）</span></div>
+                        <div class="sub-header">管理</div>
+                        <div class="row"><span class="key">/mcp</span> <span class="desc">交互界面 / reconnect / enable</span></div>
+                        <div class="row"><span class="key">claude mcp list|get</span> <span class="desc">列出 / 查看并健康检查</span></div>
+                        <div class="row"><span class="key">claude mcp login</span> <span class="desc">命令行完成 OAuth<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">claude mcp serve</span> <span class="desc">CC 作为 MCP 服务器</span></div>
+                        <div class="sub-header">用法与机制</div>
+                        <div class="row"><span class="key">@srv:proto://path</span> <span class="desc">引用 MCP 资源</span></div>
+                        <div class="row"><span class="key">/srv:prompt</span> <span class="desc">MCP prompt 作为命令</span></div>
+                        <div class="row"><span class="key">Tool search</span> <span class="desc">默认开：工具按需加载</span></div>
+                        <div class="row"><span class="key">Elicitation</span> <span class="desc">服务器在任务中请求输入</span></div>
+                    </div>
+                </section>
+
+                <!-- MEMORY & FILES -->
+                <section class="section section-memory">
+                    <div class="section-header">📁 记忆与文件</div>
+                    <div class="section-content">
+                        <div class="sub-header">CLAUDE.md 位置</div>
+                        <div class="row"><span class="key">./CLAUDE.md</span> <span class="desc">项目（或 .claude/CLAUDE.md）</span></div>
+                        <div class="row"><span class="key">./CLAUDE.local.md</span> <span class="desc">个人·本项目（加 .gitignore）</span></div>
+                        <div class="row"><span class="key">~/.claude/CLAUDE.md</span> <span class="desc">个人（所有项目）</span></div>
+                        <div class="row"><span class="key">托管策略</span> <span class="desc">macOS /Library/Application Support/ClaudeCode/ · Linux /etc/claude-code/<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">AGENTS.md</span> <span class="desc">可作为项目指令读取</span></div>
+                        <div class="sub-header">规则与导入</div>
+                        <div class="row"><span class="key">.claude/rules/*.md</span> <span class="desc">项目规则</span></div>
+                        <div class="row"><span class="key">~/.claude/rules/*.md</span> <span class="desc">用户规则</span></div>
+                        <div class="row"><span class="key">paths: frontmatter</span> <span class="desc">按路径生效的规则</span></div>
+                        <div class="row"><span class="key">@path/to/file</span> <span class="desc">在 CLAUDE.md 中导入</span></div>
+                        <div class="sub-header">自动记忆</div>
+                        <div class="row"><span class="key">~/.claude/projects/&lt;proj&gt;/memory/</span></div>
+                        <div class="row"><span class="desc">MEMORY.md 每会话加载前 200 行/25KB；同仓库 worktree 共享</span></div>
+                        <div class="row"><span class="key">/memory</span> <span class="desc">编辑 CLAUDE.md、开关自动记忆</span></div>
+                        <div class="row"><span class="key">/doctor prompt-audit</span> <span class="desc">审计过时/冲突指令<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                    </div>
+                </section>
+            </div><!-- end col 1 -->
+
+            <!-- ============ COLUMN 2: SLASH COMMANDS ============ -->
+            <div class="col">
+                <section class="section section-slash">
+                    <div class="section-header">⚡ 斜杠命令</div>
+                    <div class="section-content">
+                        <div class="sub-header">会话</div>
+                        <div class="row"><span class="key">/clear [name]</span> <span class="desc">新对话（别名 /new /reset）</span></div>
+                        <div class="row"><span class="key">/compact [focus]</span> <span class="desc">压缩上下文</span></div>
+                        <div class="row"><span class="key">/resume [session]</span> <span class="desc">恢复/切换会话</span></div>
+                        <div class="row"><span class="key">/rename [name]</span> <span class="desc">命名会话（空参自动生成）</span></div>
+                        <div class="row"><span class="key">/branch [name]</span> <span class="desc">在此处分叉对话并切过去</span></div>
+                        <div class="row"><span class="key">/fork [prompt]</span> <span class="desc">复制为后台会话，本地继续<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">/rewind</span> <span class="desc">回退代码/对话（/undo）</span></div>
+                        <div class="row"><span class="key">/context [all]</span> <span class="desc">可视化上下文 + 优化建议</span></div>
+                        <div class="row"><span class="key">/usage</span> <span class="desc">费用·套餐用量·统计（/cost /stats）<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">/diff</span> <span class="desc">查看工作区改动</span></div>
+                        <div class="row"><span class="key">/copy [N]</span> <span class="desc">复制第 N 条回复/代码块</span></div>
+                        <div class="row"><span class="key">/export [file]</span> <span class="desc">导出对话</span></div>
+                        <div class="row"><span class="key">/recap</span> <span class="desc">一句话会话摘要<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/cd &lt;path&gt;</span> <span class="desc">迁移工作目录，保留对话<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/add-dir &lt;path&gt;</span> <span class="desc">追加可访问目录</span></div>
+
+                        <div class="sub-header">模型与配置</div>
+                        <div class="row"><span class="key">/model [model]</span> <span class="desc">切模型并设为默认（s=仅本会话）</span></div>
+                        <div class="row"><span class="key">/effort [level]</span> <span class="desc">low…xhigh · max · auto<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">/fast [on|off]</span> <span class="desc">快速模式</span></div>
+                        <div class="row"><span class="key">/advisor [model]</span> <span class="desc">启用第二模型顾问<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/config [k=v]</span> <span class="desc">设置界面 / 直接改值</span></div>
+                        <div class="row"><span class="key">/permissions</span> <span class="desc">allow/ask/deny 规则</span></div>
+                        <div class="row"><span class="key">/output-style</span> <span class="desc">切换输出风格<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/theme · /color</span> <span class="desc">主题 / 提示栏颜色</span></div>
+                        <div class="row"><span class="key">/statusline</span> <span class="desc">配置状态栏</span></div>
+                        <div class="row"><span class="key">/tui fullscreen</span> <span class="desc">无闪烁全屏渲染<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/autocompact 500k</span> <span class="desc">自定义自动压缩窗口<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/keybindings</span> <span class="desc">打开快捷键配置文件</span></div>
+                        <div class="row"><span class="key">/sandbox</span> <span class="desc">切换沙箱模式</span></div>
+                        <div class="row removed"><span class="key">/vim</span> <span class="desc">已移除 → /config → Editor mode</span></div>
+
+                        <div class="sub-header">扩展</div>
+                        <div class="row"><span class="key">/init</span> <span class="desc">生成 CLAUDE.md</span></div>
+                        <div class="row"><span class="key">/mcp · /hooks</span> <span class="desc">MCP 连接 / 查看钩子</span></div>
+                        <div class="row"><span class="key">/skills</span> <span class="desc">技能列表（t 按 token 排序）</span></div>
+                        <div class="row"><span class="key">/reload-skills</span> <span class="desc">重扫技能目录<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/plugin · /reload-plugins</span> <span class="desc">插件管理 / 热重载</span></div>
+                        <div class="row"><span class="key">/agents</span> <span class="desc">仅提示：让 Claude 建代理或改 .claude/agents/<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">/import codex|gemini</span> <span class="desc">迁移其他工具配置<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/ide · /chrome</span> <span class="desc">IDE / Chrome 集成</span></div>
+
+                        <div class="sub-header">审查与交付</div>
+                        <div class="row"><span class="key">/code-review [lvl] [--fix]</span> <span class="desc">查 bug（别名 /review）<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/code-review ultra</span> <span class="desc">云端多代理深度审查</span></div>
+                        <div class="row"><span class="key">/security-review</span> <span class="desc">分支安全漏洞审查</span></div>
+                        <div class="row"><span class="key">/run · /verify</span> <span class="desc">启动应用实测改动<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/autofix-pr</span> <span class="desc">云端盯 PR，CI 失败自动修</span></div>
+
+                        <div class="sub-header">并行、后台与远程</div>
+                        <div class="row"><span class="key">/background [prompt]</span> <span class="desc">当前会话转后台运行<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/subtask &lt;task&gt;</span> <span class="desc">分叉子代理，结果回流<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/tasks</span> <span class="desc">查看后台任务（/bashes）</span></div>
+                        <div class="row"><span class="key">/goal &lt;condition&gt;</span> <span class="desc">持续工作直到条件满足<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/deep-research &lt;q&gt;</span> <span class="desc">多路检索出带引用报告<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/workflows</span> <span class="desc">查看/暂停/恢复工作流</span></div>
+                        <div class="row"><span class="key">/schedule</span> <span class="desc">云端定时任务（原 routines）</span></div>
+                        <div class="row"><span class="key">/remote-control</span> <span class="desc">从 claude.ai 接管本会话（/rc）</span></div>
+                        <div class="row"><span class="key">/teleport</span> <span class="desc">拉取云端会话到本地（/tp）</span></div>
+                        <div class="row"><span class="key">/desktop</span> <span class="desc">在桌面应用中继续（/app）</span></div>
+
+                        <div class="sub-header">特殊与诊断</div>
+                        <div class="row"><span class="key">/btw &lt;question&gt;</span> <span class="desc">旁路提问，不进历史</span></div>
+                        <div class="row"><span class="key">/plan [desc]</span> <span class="desc">进入计划模式并开工</span></div>
+                        <div class="row"><span class="key">/voice [hold|tap]</span> <span class="desc">语音听写</span></div>
+                        <div class="row"><span class="key">/doctor</span> <span class="desc">体检并可自动修复<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">/debug [desc]</span> <span class="desc">开调试日志排查</span></div>
+                        <div class="row"><span class="key">/insights</span> <span class="desc">近期会话分析 HTML 报告</span></div>
+                        <div class="row"><span class="key">/feedback</span> <span class="desc">反馈 / 报 bug（/bug）</span></div>
+                        <div class="row"><span class="key">/release-notes</span> <span class="desc">按版本查看更新日志</span></div>
+                        <div class="row"><span class="key">/powerup</span> <span class="desc">交互式功能小课<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">/stickers</span> <span class="desc">订购贴纸！🎉</span></div>
+                        <div class="row removed"><span class="key">/pr-comments</span> <span class="desc">v2.1.91 移除，直接让 Claude 读 PR</span></div>
+                    </div>
+                </section>
+            </div><!-- end col 2 -->
+
+            <!-- ============ COLUMN 3: WORKFLOWS + CONFIG ============ -->
+            <div class="col">
+                <!-- WORKFLOWS & TIPS -->
+                <section class="section section-workflows">
+                    <div class="section-header">🧠 工作流与技巧</div>
+                    <div class="section-content">
+                        <div class="sub-header">权限与计划模式</div>
+                        <div class="row"><span class="key"><span class="keycap">⇧</span><span class="keycap">Tab</span></span> <span class="desc">Manual → acceptEdits → plan → (bypass) → auto<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">auto 默认</span> <span class="desc">交互式会话默认 auto（分类器把关）</span></div>
+                        <div class="row"><span class="key">--permission-mode plan</span> <span class="desc">以计划模式启动</span></div>
+                        <div class="row"><span class="key">/auto-mode-setup</span> <span class="desc">教 auto 模式认识你的环境<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+
+                        <div class="sub-header">思考与努力度</div>
+                        <div class="row"><span class="key">/effort</span> <span class="desc">low · medium · high · xhigh · max · auto</span></div>
+                        <div class="row"><span class="key">默认值</span> <span class="desc">Opus/Sonnet 5.5 为 medium，多数模型 high</span></div>
+                        <div class="row"><span class="key">"ultrathink"</span> <span class="desc">本轮深度推理（不改 effort）</span></div>
+                        <div class="row"><span class="key">/effort ultracode</span> <span class="desc">每个实质任务自动规划工作流<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key"><span class="keycap">Ctrl</span><span class="keycap">O</span></span> <span class="desc">查看思考（转录视图）</span></div>
+
+                        <div class="sub-header">上下文管理</div>
+                        <div class="row"><span class="key">/context</span> <span class="desc">用量 + 优化建议</span></div>
+                        <div class="row"><span class="key">/compact [focus]</span> <span class="desc">带焦点压缩</span></div>
+                        <div class="row"><span class="key">Auto-compact</span> <span class="desc">接近模型上限触发（1M 模型约 967K）<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">Idle compaction</span> <span class="desc">200K+ 空闲约 54 分钟预压缩<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">1M context</span> <span class="desc">Fable / Sonnet 5+ / Opus 4.7+ 原生<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">opus[1m]</span> <span class="desc">别名强制 1M 窗口（sonnet[1m] 同理）</span></div>
+
+                        <div class="sub-header">后台会话（Agent View）<span class="badge-new" data-added="2026-10-21">NEW</span></div>
+                        <div class="row"><span class="key">claude --bg "task"</span> <span class="desc">后台启动，立即返回 id</span></div>
+                        <div class="row"><span class="key">claude agents</span> <span class="desc">全部后台会话总览</span></div>
+                        <div class="row"><span class="key">claude attach|logs|stop</span> <span class="desc">接入 / 看输出 / 停止</span></div>
+                        <div class="row"><span class="key">/background · /fork</span> <span class="desc">本会话转后台 / 复制一份到后台</span></div>
+
+                        <div class="sub-header">Git Worktrees</div>
+                        <div class="row"><span class="key">claude -w name</span> <span class="desc">每个功能独立 worktree</span></div>
+                        <div class="row"><span class="key">-w name --tmux</span> <span class="desc">同时开 tmux / iTerm2 窗格</span></div>
+                        <div class="row"><span class="key">isolation: worktree</span> <span class="desc">代理在独立 worktree 中</span></div>
+                        <div class="row"><span class="key">worktree.sparsePaths</span> <span class="desc">仅检出所需目录</span></div>
+                        <div class="row"><span class="key">/batch &lt;instr&gt;</span> <span class="desc">拆 5-30 单元并行改</span></div>
+
+                        <div class="sub-header">无头 / SDK</div>
+                        <div class="row"><span class="key">claude -p "query"</span> <span class="desc">非交互（默认 Manual 权限）</span></div>
+                        <div class="row"><span class="key">--output-format json</span> <span class="desc">结构化输出（或 stream-json）</span></div>
+                        <div class="row"><span class="key">--json-schema '{…}'</span> <span class="desc">按 Schema 校验输出</span></div>
+                        <div class="row"><span class="key">--max-budget-usd 5</span> <span class="desc">费用上限</span></div>
+                        <div class="row"><span class="key">dontAsk + --allowedTools</span> <span class="desc">CI 精确白名单</span></div>
+                        <div class="row"><span class="key">cat file | claude -p</span> <span class="desc">管道输入</span></div>
+
+                        <div class="sub-header">调度、远程与语音</div>
+                        <div class="row"><span class="key">/loop 5m msg</span> <span class="desc">本会话周期任务（省略间隔自调节）</span></div>
+                        <div class="row"><span class="key">/schedule</span> <span class="desc">云端 cron 任务，关机也跑</span></div>
+                        <div class="row"><span class="key">--cloud "desc"</span> <span class="desc">创建云端会话（--remote 已弃用）<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">/rc · /teleport</span> <span class="desc">远程接管 / 云端拉回本地</span></div>
+                        <div class="row"><span class="key"><span class="keycap">Space</span> 按住</span> <span class="desc">语音录入（/voice tap 改为轻点）</span></div>
+                    </div>
+                </section>
+
+                <!-- CONFIG & ENV -->
+                <section class="section section-config">
+                    <div class="section-header">⚙️ 配置与环境</div>
+                    <div class="section-content">
+                        <div class="sub-header">配置文件（优先级从高到低）</div>
+                        <div class="row"><span class="key">managed-settings.json</span> <span class="desc">组织托管（最高）</span></div>
+                        <div class="row"><span class="key">--settings</span> <span class="desc">命令行，仅本次会话</span></div>
+                        <div class="row"><span class="key">.claude/settings.local.json</span> <span class="desc">仅本地</span></div>
+                        <div class="row"><span class="key">.claude/settings.json</span> <span class="desc">项目（共享）</span></div>
+                        <div class="row"><span class="key">~/.claude/settings.json</span> <span class="desc">用户</span></div>
+                        <div class="row"><span class="key">~/.claude.json</span> <span class="desc">OAuth、MCP、状态</span></div>
+                        <div class="row"><span class="key">~/.claude/keybindings.json</span> <span class="desc">自定义快捷键</span></div>
+                        <div class="sub-header">重要设置</div>
+                        <div class="row"><span class="key">permissions.defaultMode</span> <span class="desc">默认权限模式</span></div>
+                        <div class="row"><span class="key">language</span> <span class="desc">默认回复语言，如 "chinese"</span></div>
+                        <div class="row"><span class="key">modelOverrides</span> <span class="desc">模型选择器映射自定义 ID</span></div>
+                        <div class="row"><span class="key">autoCompactWindow</span> <span class="desc">自动压缩窗口 100K-1M</span></div>
+                        <div class="row"><span class="key">autoMemoryDirectory</span> <span class="desc">自定义记忆目录</span></div>
+                        <div class="row"><span class="key">attribution</span> <span class="desc">提交/PR 署名（替代 includeCoAuthoredBy）</span></div>
+                        <div class="row"><span class="key">outputStyle · statusLine</span> <span class="desc">输出风格 / 状态栏</span></div>
+                        <div class="sub-header">重要环境变量</div>
+                        <div class="row"><span class="key">ANTHROPIC_API_KEY</span> <span class="desc">设了即优先于订阅</span></div>
+                        <div class="row"><span class="key">ANTHROPIC_BASE_URL</span> <span class="desc">代理 / 网关地址</span></div>
+                        <div class="row"><span class="key">ANTHROPIC_MODEL</span> <span class="desc">默认模型</span></div>
+                        <div class="row"><span class="key">CLAUDE_CODE_EFFORT_LEVEL</span> <span class="desc">low…max/auto，优先级最高</span></div>
+                        <div class="row"><span class="key">MAX_THINKING_TOKENS</span> <span class="desc">固定思考预算；0=关（5.5/Fable 无效）</span></div>
+                        <div class="row"><span class="key">CLAUDE_CODE_SUBAGENT_MODEL</span> <span class="desc">子代理默认模型</span></div>
+                        <div class="row"><span class="key">CLAUDE_CONFIG_DIR</span> <span class="desc">配置目录（多账户并存）</span></div>
+                        <div class="row"><span class="key">ANTHROPIC_CUSTOM_MODEL_OPTION</span> <span class="desc">自定义 /model 条目</span></div>
+                    </div>
+                </section>
+            </div><!-- end col 3 -->
+
+            <!-- ============ COLUMN 4: SKILLS + HOOKS + CLI ============ -->
+            <div class="col">
+                <!-- SKILLS & AGENTS -->
+                <section class="section section-skills">
+                    <div class="section-header">🔧 技能与代理</div>
+                    <div class="section-content">
+                        <div class="sub-header">内置技能</div>
+                        <div class="row"><span class="key">/simplify</span> <span class="desc">整洁度审查（4 个并行代理）<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">/code-review</span> <span class="desc">正确性审查，--fix 落地</span></div>
+                        <div class="row"><span class="key">/batch</span> <span class="desc">大规模并行修改</span></div>
+                        <div class="row"><span class="key">/debug · /doctor</span> <span class="desc">运行时排查 / 安装体检</span></div>
+                        <div class="row"><span class="key">/loop</span> <span class="desc">周期调度（别名 /proactive）</span></div>
+                        <div class="row"><span class="key">/claude-api [sub]</span> <span class="desc">API 参考；migrate · build-eval …</span></div>
+                        <div class="row"><span class="key">/fewer-permission-prompts</span> <span class="desc">扫描历史生成白名单</span></div>
+                        <div class="row"><span class="key">/update-config</span> <span class="desc">用自然语言改 settings.json</span></div>
+
+                        <div class="sub-header">自定义技能位置</div>
+                        <div class="row"><span class="key">.claude/skills/&lt;name&gt;/SKILL.md</span> <span class="desc">项目</span></div>
+                        <div class="row"><span class="key">~/.claude/skills/&lt;name&gt;/</span> <span class="desc">个人</span></div>
+                        <div class="row"><span class="key">&lt;plugin&gt;/skills/</span> <span class="desc">/plugin:skill</span></div>
+                        <div class="note">.claude/commands/*.md 已并入技能体系，仍可用</div>
+
+                        <div class="sub-header">技能前置元数据</div>
+                        <div class="row"><span class="key">description</span> <span class="desc">自动调用依据</span></div>
+                        <div class="row"><span class="key">when_to_use</span> <span class="desc">补充触发场景<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">argument-hint</span> <span class="desc">参数补全提示</span></div>
+                        <div class="row"><span class="key">disable-model-invocation</span> <span class="desc">仅允许手动 /name</span></div>
+                        <div class="row"><span class="key">user-invocable: false</span> <span class="desc">仅 Claude 可调用</span></div>
+                        <div class="row"><span class="key">allowed-tools</span> <span class="desc">本轮免确认工具</span></div>
+                        <div class="row"><span class="key">model · effort</span> <span class="desc">覆盖模型 / 努力度</span></div>
+                        <div class="row"><span class="key">context: fork</span> <span class="desc">在子代理中运行（配 agent）</span></div>
+                        <div class="row"><span class="key">paths</span> <span class="desc">仅匹配文件时自动加载<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">$ARGUMENTS · $0 $1</span> <span class="desc">全部 / 第 N 个参数</span></div>
+                        <div class="row"><span class="key">${CLAUDE_SKILL_DIR}</span> <span class="desc">技能自身目录</span></div>
+                        <div class="row"><span class="key">!`cmd`</span> <span class="desc">动态注入命令输出</span></div>
+
+                        <div class="sub-header">内置代理</div>
+                        <div class="row"><span class="key">Explore</span> <span class="desc">只读快速检索（随主模型）<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">Plan</span> <span class="desc">计划模式调研（只读）</span></div>
+                        <div class="row"><span class="key">general-purpose</span> <span class="desc">全工具，复杂多步任务</span></div>
+                        <div class="row"><span class="key">claude</span> <span class="desc">兜底通用代理<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">claude-code-guide</span> <span class="desc">答 Claude Code 用法（Haiku）</span></div>
+
+                        <div class="sub-header">代理前置元数据（.claude/agents/*.md）</div>
+                        <div class="row"><span class="key">name · description</span> <span class="desc">必填</span></div>
+                        <div class="row"><span class="key">tools · disallowedTools</span> <span class="desc">工具白/黑名单</span></div>
+                        <div class="row"><span class="key">model</span> <span class="desc">sonnet/opus/haiku/fable/inherit</span></div>
+                        <div class="row"><span class="key">permissionMode</span> <span class="desc">default / acceptEdits / auto / dontAsk / plan</span></div>
+                        <div class="row"><span class="key">isolation: worktree</span> <span class="desc">在 git worktree 中运行</span></div>
+                        <div class="row"><span class="key">memory: user|project|local</span> <span class="desc">持久化记忆</span></div>
+                        <div class="row"><span class="key">skills · mcpServers</span> <span class="desc">预加载技能 / 专属 MCP</span></div>
+                        <div class="row"><span class="key">background · maxTurns</span> <span class="desc">后台运行 / 限制轮次</span></div>
+                        <div class="row"><span class="key">SendMessage</span> <span class="desc">向已停止代理续发消息</span></div>
+                    </div>
+                </section>
+
+                <!-- HOOKS -->
+                <section class="section section-hooks">
+                    <div class="section-header">🪝 Hooks 钩子<span class="badge-new" data-added="2026-10-21">NEW</span></div>
+                    <div class="section-content">
+                        <div class="sub-header">配置</div>
+                        <div class="row"><span class="key">settings.json → "hooks"</span> <span class="desc">按事件 + matcher 注册</span></div>
+                        <div class="row"><span class="key">matcher: "Bash|Edit"</span> <span class="desc">按工具名匹配</span></div>
+                        <div class="row"><span class="key">type</span> <span class="desc">command/http/mcp_tool/prompt/agent</span></div>
+                        <div class="row"><span class="key">exit 2</span> <span class="desc">阻断，stderr 反馈给 Claude</span></div>
+                        <div class="sub-header">常用事件</div>
+                        <div class="two-col">
+                            <div class="row"><span class="key">PreToolUse</span> <span class="desc">可阻断</span></div>
+                            <div class="row"><span class="key">PostToolUse</span> <span class="desc">调用后</span></div>
+                            <div class="row"><span class="key">UserPromptSubmit</span> <span class="desc">提交时</span></div>
+                            <div class="row"><span class="key">Stop</span> <span class="desc">回答结束</span></div>
+                            <div class="row"><span class="key">SessionStart</span> <span class="desc">会话开始</span></div>
+                            <div class="row"><span class="key">Notification</span> <span class="desc">通知</span></div>
+                            <div class="row"><span class="key">PreCompact</span> <span class="desc">压缩前</span></div>
+                            <div class="row"><span class="key">SubagentStop</span> <span class="desc">子代理完</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CLI COMMANDS & FLAGS -->
+                <section class="section section-cli">
+                    <div class="section-header">🖥️ CLI 与标志</div>
+                    <div class="section-content">
+                        <div class="sub-header">核心命令</div>
+                        <div class="two-col">
+                            <div class="row"><span class="key">claude</span> <span class="desc">交互式</span></div>
+                            <div class="row"><span class="key">claude "q"</span> <span class="desc">带提示</span></div>
+                            <div class="row"><span class="key">claude -p "q"</span> <span class="desc">无头</span></div>
+                            <div class="row"><span class="key">claude -c</span> <span class="desc">继续上次</span></div>
+                            <div class="row"><span class="key">claude -r "n"</span> <span class="desc">恢复</span></div>
+                            <div class="row"><span class="key">claude update</span> <span class="desc">更新</span></div>
+                            <div class="row"><span class="key">claude doctor</span> <span class="desc">只读体检</span></div>
+                            <div class="row"><span class="key">claude auth</span> <span class="desc">登录/状态</span></div>
+                        </div>
+                        <div class="row"><span class="key">claude auth login --console</span> <span class="desc">用 Console API 计费登录<span class="badge-chg">改</span></span></div>
+                        <div class="row"><span class="key">claude plugin install x@mkt</span> <span class="desc">安装插件</span></div>
+                        <div class="row"><span class="key">claude ultrareview [PR]</span> <span class="desc">云端多代理审查</span></div>
+                        <div class="sub-header">重要标志</div>
+                        <div class="two-col">
+                            <div class="row"><span class="key">--model</span> <span class="desc">模型</span></div>
+                            <div class="row"><span class="key">--effort</span> <span class="desc">努力度</span></div>
+                            <div class="row"><span class="key">-w</span> <span class="desc">worktree</span></div>
+                            <div class="row"><span class="key">-n</span> <span class="desc">会话名</span></div>
+                            <div class="row"><span class="key">--add-dir</span> <span class="desc">加目录</span></div>
+                            <div class="row"><span class="key">--agent</span> <span class="desc">用代理</span></div>
+                            <div class="row"><span class="key">--allowedTools</span> <span class="desc">预批准</span></div>
+                            <div class="row"><span class="key">--tools</span> <span class="desc">限内置工具</span></div>
+                            <div class="row"><span class="key">--max-turns</span> <span class="desc">限轮次</span></div>
+                            <div class="row"><span class="key">--fork-session</span> <span class="desc">恢复时新 ID</span></div>
+                            <div class="row"><span class="key">--from-pr</span> <span class="desc">按 PR 恢复</span></div>
+                            <div class="row"><span class="key">--verbose</span> <span class="desc">详细</span></div>
+                        </div>
+                        <div class="row"><span class="key">--append-system-prompt</span> <span class="desc">追加系统提示</span></div>
+                        <div class="row"><span class="key">--mcp-config / --strict-mcp-config</span></div>
+                        <div class="row"><span class="key">--fallback-model</span> <span class="desc">过载时备选模型</span></div>
+                        <div class="row"><span class="key">--bare</span> <span class="desc">最小化（无 hooks/LSP/插件/记忆）</span></div>
+                        <div class="row"><span class="key">--safe-mode</span> <span class="desc">禁用全部自定义排障<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">--restricted</span> <span class="desc">去掉执行类工具、忽略本地设置<span class="badge-new" data-added="2026-10-21">NEW</span></span></div>
+                        <div class="row"><span class="key">--channels</span> <span class="desc">MCP 推送消息（预览）</span></div>
+                        <div class="row"><span class="key">--remote-control · --chrome · --ide</span></div>
+                    </div>
+                </section>
+            </div><!-- end col 4 -->
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="footer-row">
+                <span class="footer-label">权限模式：</span>
+                <span class="footer-item"><code>default</code> Manual，仅读免问</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>acceptEdits</code> 自动接受编辑</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>plan</code> 只读，批准计划后才改</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>auto</code> 分类器后台把关（交互默认）</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>dontAsk</code> 未允许即拒绝</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>bypassPermissions</code> 跳过所有（仅限容器/VM）</span>
+            </div>
+            <div class="footer-row">
+                <span class="footer-label">模型别名：</span>
+                <span class="footer-item"><code>fable</code> 最难/最长任务</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>opus</code> 复杂推理</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>sonnet</code> 日常编码</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>haiku</code> 轻量快速</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>best</code> 可用时取 fable 否则 opus</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>opusplan</code> 计划用 opus、执行用 sonnet</span>
+            </div>
+            <div class="footer-row">
+                <span class="footer-label">更多环境变量：</span>
+                <span class="footer-item"><code>CLAUDE_CODE_MAX_OUTPUT_TOKENS</code> (默认随模型)</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>BASH_DEFAULT_TIMEOUT_MS</code> (默认 120000)</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>MAX_MCP_OUTPUT_TOKENS</code> (默认 25000)</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>CLAUDE_CODE_DISABLE_AUTO_MEMORY</code></span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>CLAUDE_CODE_DISABLE_CRON</code></span>
+                <span class="footer-sep">·</span>
+                <span class="footer-item"><code>CLAUDE_CODE_USE_BEDROCK / _VERTEX</code></span>
+            </div>
+            <div class="footer-row">
+                <span class="footer-label">来源：</span>
+                <span class="footer-item">本机 <code>claude --help</code> (v2.1.302) + <a href="https://code.claude.com/docs/en/commands" target="_blank" rel="noopener">code.claude.com/docs</a>（changelog 至 v2.1.306）· 原版样式参考 foofish.net</span>
+            </div>
+        </footer>
+    </div>
+    <script>
+        (function () {
+            var toggle = document.getElementById('osToggle');
+            var btns = toggle.querySelectorAll('.os-btn');
+
+            function store(key, val) {
+                try {
+                    if (val === undefined) return localStorage.getItem(key);
+                    localStorage.setItem(key, val);
+                } catch (e) { return null; }
+            }
+
+            function detectOS() {
+                var p = navigator.platform || '';
+                var ua = navigator.userAgent || '';
+                if (/Mac|iPhone|iPod|iPad/.test(p) || /Mac/.test(ua)) return 'mac';
+                return 'win';
+            }
+
+            var saved = (store('cc-os-manual') && store('cc-os')) || detectOS();
+
+            function apply(os) {
+                btns.forEach(function (b) { b.classList.toggle('active', b.dataset.os === os); });
+
+                document.querySelectorAll('.keycap').forEach(function (keycap) {
+                    var text = keycap.textContent.trim();
+                    // Paste image → macOS: Ctrl+V, Windows/WSL: Alt+V
+                    var inPasteRow = !!keycap.closest('[data-paste]');
+
+                    if (inPasteRow && (text === 'Ctrl' || text === 'Alt')) {
+                        keycap.textContent = (os === 'mac') ? 'Ctrl' : 'Alt';
+                    } else if (text === 'Alt' || text === '⌥') {
+                        keycap.textContent = (os === 'mac') ? '⌥' : 'Alt';
+                    } else if (text === 'Shift' || text === '⇧') {
+                        keycap.textContent = (os === 'mac') ? '⇧' : 'Shift';
+                    }
+                    // Ctrl, Esc, Enter, Tab, letters, arrows etc. — unchanged on both
+                });
+
+                store('cc-os', os);
+            }
+
+            btns.forEach(function (btn) {
+                btn.addEventListener('click', function () { store('cc-os-manual', '1'); apply(btn.dataset.os); });
+            });
+
+            apply(saved);
+        })();
+    </script>
+    <!-- NEW badges: add data-added="YYYY-MM-DD" when adding. Auto-hidden after 14 days via JS. -->
+    <script>
+        (function () {
+            var now = new Date();
+            document.querySelectorAll('.badge-new[data-added]').forEach(function (el) {
+                var added = new Date(el.getAttribute('data-added'));
+                if ((now - added) / 86400000 > 14) el.style.display = 'none';
+            });
+        })();
+    </script>
+</body>
+</html>
